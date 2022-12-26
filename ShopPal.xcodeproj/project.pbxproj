@@ -1,0 +1,609 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		9643EB08295949CC00C46A96 /* ShopPalApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9643EB07295949CC00C46A96 /* ShopPalApp.swift */; };
+		9643EB0A295949CC00C46A96 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9643EB09295949CC00C46A96 /* ContentView.swift */; };
+		9643EB0C295949CD00C46A96 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9643EB0B295949CD00C46A96 /* Assets.xcassets */; };
+		9643EB10295949CD00C46A96 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9643EB0F295949CD00C46A96 /* Preview Assets.xcassets */; };
+		9643EB1A295949CD00C46A96 /* ShopPalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9643EB19295949CD00C46A96 /* ShopPalTests.swift */; };
+		9643EB24295949CD00C46A96 /* ShopPalUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9643EB23295949CD00C46A96 /* ShopPalUITests.swift */; };
+		9643EB26295949CD00C46A96 /* ShopPalUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9643EB25295949CD00C46A96 /* ShopPalUITestsLaunchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		9643EB16295949CD00C46A96 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9643EAFC295949CC00C46A96 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9643EB03295949CC00C46A96;
+			remoteInfo = ShopPal;
+		};
+		9643EB20295949CD00C46A96 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9643EAFC295949CC00C46A96 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9643EB03295949CC00C46A96;
+			remoteInfo = ShopPal;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		9643EB04295949CC00C46A96 /* ShopPal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShopPal.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9643EB07295949CC00C46A96 /* ShopPalApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopPalApp.swift; sourceTree = "<group>"; };
+		9643EB09295949CC00C46A96 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		9643EB0B295949CD00C46A96 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		9643EB0D295949CD00C46A96 /* ShopPal.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShopPal.entitlements; sourceTree = "<group>"; };
+		9643EB0F295949CD00C46A96 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		9643EB15295949CD00C46A96 /* ShopPalTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShopPalTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9643EB19295949CD00C46A96 /* ShopPalTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopPalTests.swift; sourceTree = "<group>"; };
+		9643EB1F295949CD00C46A96 /* ShopPalUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShopPalUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9643EB23295949CD00C46A96 /* ShopPalUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopPalUITests.swift; sourceTree = "<group>"; };
+		9643EB25295949CD00C46A96 /* ShopPalUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopPalUITestsLaunchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		9643EB01295949CC00C46A96 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9643EB12295949CD00C46A96 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9643EB1C295949CD00C46A96 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		9643EAFB295949CC00C46A96 = {
+			isa = PBXGroup;
+			children = (
+				9643EB06295949CC00C46A96 /* ShopPal */,
+				9643EB18295949CD00C46A96 /* ShopPalTests */,
+				9643EB22295949CD00C46A96 /* ShopPalUITests */,
+				9643EB05295949CC00C46A96 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		9643EB05295949CC00C46A96 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9643EB04295949CC00C46A96 /* ShopPal.app */,
+				9643EB15295949CD00C46A96 /* ShopPalTests.xctest */,
+				9643EB1F295949CD00C46A96 /* ShopPalUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9643EB06295949CC00C46A96 /* ShopPal */ = {
+			isa = PBXGroup;
+			children = (
+				9643EB07295949CC00C46A96 /* ShopPalApp.swift */,
+				9643EB09295949CC00C46A96 /* ContentView.swift */,
+				9643EB0B295949CD00C46A96 /* Assets.xcassets */,
+				9643EB0D295949CD00C46A96 /* ShopPal.entitlements */,
+				9643EB0E295949CD00C46A96 /* Preview Content */,
+			);
+			path = ShopPal;
+			sourceTree = "<group>";
+		};
+		9643EB0E295949CD00C46A96 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				9643EB0F295949CD00C46A96 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		9643EB18295949CD00C46A96 /* ShopPalTests */ = {
+			isa = PBXGroup;
+			children = (
+				9643EB19295949CD00C46A96 /* ShopPalTests.swift */,
+			);
+			path = ShopPalTests;
+			sourceTree = "<group>";
+		};
+		9643EB22295949CD00C46A96 /* ShopPalUITests */ = {
+			isa = PBXGroup;
+			children = (
+				9643EB23295949CD00C46A96 /* ShopPalUITests.swift */,
+				9643EB25295949CD00C46A96 /* ShopPalUITestsLaunchTests.swift */,
+			);
+			path = ShopPalUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		9643EB03295949CC00C46A96 /* ShopPal */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9643EB29295949CD00C46A96 /* Build configuration list for PBXNativeTarget "ShopPal" */;
+			buildPhases = (
+				9643EB00295949CC00C46A96 /* Sources */,
+				9643EB01295949CC00C46A96 /* Frameworks */,
+				9643EB02295949CC00C46A96 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ShopPal;
+			productName = ShopPal;
+			productReference = 9643EB04295949CC00C46A96 /* ShopPal.app */;
+			productType = "com.apple.product-type.application";
+		};
+		9643EB14295949CD00C46A96 /* ShopPalTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9643EB2C295949CD00C46A96 /* Build configuration list for PBXNativeTarget "ShopPalTests" */;
+			buildPhases = (
+				9643EB11295949CD00C46A96 /* Sources */,
+				9643EB12295949CD00C46A96 /* Frameworks */,
+				9643EB13295949CD00C46A96 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9643EB17295949CD00C46A96 /* PBXTargetDependency */,
+			);
+			name = ShopPalTests;
+			productName = ShopPalTests;
+			productReference = 9643EB15295949CD00C46A96 /* ShopPalTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		9643EB1E295949CD00C46A96 /* ShopPalUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9643EB2F295949CD00C46A96 /* Build configuration list for PBXNativeTarget "ShopPalUITests" */;
+			buildPhases = (
+				9643EB1B295949CD00C46A96 /* Sources */,
+				9643EB1C295949CD00C46A96 /* Frameworks */,
+				9643EB1D295949CD00C46A96 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9643EB21295949CD00C46A96 /* PBXTargetDependency */,
+			);
+			name = ShopPalUITests;
+			productName = ShopPalUITests;
+			productReference = 9643EB1F295949CD00C46A96 /* ShopPalUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		9643EAFC295949CC00C46A96 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1420;
+				LastUpgradeCheck = 1420;
+				TargetAttributes = {
+					9643EB03295949CC00C46A96 = {
+						CreatedOnToolsVersion = 14.2;
+					};
+					9643EB14295949CD00C46A96 = {
+						CreatedOnToolsVersion = 14.2;
+						TestTargetID = 9643EB03295949CC00C46A96;
+					};
+					9643EB1E295949CD00C46A96 = {
+						CreatedOnToolsVersion = 14.2;
+						TestTargetID = 9643EB03295949CC00C46A96;
+					};
+				};
+			};
+			buildConfigurationList = 9643EAFF295949CC00C46A96 /* Build configuration list for PBXProject "ShopPal" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 9643EAFB295949CC00C46A96;
+			productRefGroup = 9643EB05295949CC00C46A96 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				9643EB03295949CC00C46A96 /* ShopPal */,
+				9643EB14295949CD00C46A96 /* ShopPalTests */,
+				9643EB1E295949CD00C46A96 /* ShopPalUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		9643EB02295949CC00C46A96 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9643EB10295949CD00C46A96 /* Preview Assets.xcassets in Resources */,
+				9643EB0C295949CD00C46A96 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9643EB13295949CD00C46A96 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9643EB1D295949CD00C46A96 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		9643EB00295949CC00C46A96 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9643EB0A295949CC00C46A96 /* ContentView.swift in Sources */,
+				9643EB08295949CC00C46A96 /* ShopPalApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9643EB11295949CD00C46A96 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9643EB1A295949CD00C46A96 /* ShopPalTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9643EB1B295949CD00C46A96 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9643EB26295949CD00C46A96 /* ShopPalUITestsLaunchTests.swift in Sources */,
+				9643EB24295949CD00C46A96 /* ShopPalUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		9643EB17295949CD00C46A96 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9643EB03295949CC00C46A96 /* ShopPal */;
+			targetProxy = 9643EB16295949CD00C46A96 /* PBXContainerItemProxy */;
+		};
+		9643EB21295949CD00C46A96 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9643EB03295949CC00C46A96 /* ShopPal */;
+			targetProxy = 9643EB20295949CD00C46A96 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		9643EB27295949CD00C46A96 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		9643EB28295949CD00C46A96 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		9643EB2A295949CD00C46A96 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ShopPal/ShopPal.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"ShopPal/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "JDE-STUDIOS.ShopPal";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		9643EB2B295949CD00C46A96 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ShopPal/ShopPal.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"ShopPal/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "JDE-STUDIOS.ShopPal";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		9643EB2D295949CD00C46A96 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "JDE-STUDIOS.ShopPalTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ShopPal.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ShopPal";
+			};
+			name = Debug;
+		};
+		9643EB2E295949CD00C46A96 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "JDE-STUDIOS.ShopPalTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ShopPal.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ShopPal";
+			};
+			name = Release;
+		};
+		9643EB30295949CD00C46A96 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "JDE-STUDIOS.ShopPalUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = ShopPal;
+			};
+			name = Debug;
+		};
+		9643EB31295949CD00C46A96 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "JDE-STUDIOS.ShopPalUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = ShopPal;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		9643EAFF295949CC00C46A96 /* Build configuration list for PBXProject "ShopPal" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9643EB27295949CD00C46A96 /* Debug */,
+				9643EB28295949CD00C46A96 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9643EB29295949CD00C46A96 /* Build configuration list for PBXNativeTarget "ShopPal" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9643EB2A295949CD00C46A96 /* Debug */,
+				9643EB2B295949CD00C46A96 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9643EB2C295949CD00C46A96 /* Build configuration list for PBXNativeTarget "ShopPalTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9643EB2D295949CD00C46A96 /* Debug */,
+				9643EB2E295949CD00C46A96 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9643EB2F295949CD00C46A96 /* Build configuration list for PBXNativeTarget "ShopPalUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9643EB30295949CD00C46A96 /* Debug */,
+				9643EB31295949CD00C46A96 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 9643EAFC295949CC00C46A96 /* Project object */;
+}
