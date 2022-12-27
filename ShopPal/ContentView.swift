@@ -39,15 +39,16 @@ struct LoginView: View {
                     //Login button (currently holds no purpose)
                     Button(action: login) {
                         Text("Login")
+                            .frame(width: metrics.size.width*0.7, height:metrics.size.height*0.01)
                     }
                     .buttonStyle(RoundedButtonStyle())
-                    .frame(height:20)
-                    .padding()
-                    
+
                     //New user creation button
                     NavigationLink(destination: CreateUserScreen()) {
                         Text("New User")
+                        .frame(width: metrics.size.width*0.7, height:metrics.size.height*0.01)
                     }
+                    .buttonStyle(RoundedButtonStyle())
                 }
 
             }
@@ -58,6 +59,8 @@ struct LoginView: View {
 
     func login() {
         // Perform login action here
+        print("Username: \(username)")
+        print("Password: \(password)")
     }
 }
 
@@ -70,7 +73,6 @@ struct RoundedButtonStyle: ButtonStyle {
             .cornerRadius(10)
             .foregroundColor(.white)
             .font(.headline)
-            .frame(height:20)
     }
 }
 
@@ -89,14 +91,22 @@ struct CreateUserScreen: View {
                     SecureField("Confirm Password", text: $confirmPassword)
                 }
                 Section {
-                    Button(action: {
-                        // Create the new user here
+                    Button(action:{
+                        print("Username: \(username)")
+                        print("Password: \(password)")
+                        print("Confirm Password: \(confirmPassword)")
+                        if(password==confirmPassword){
+                            print("Success")
+                        }else{
+                            print("Fail")
+                        }
                     }) {
                         Text("Submit")
                     }
                 }
             }
         }
+
     }
 }
 
