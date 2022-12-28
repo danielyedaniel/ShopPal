@@ -45,6 +45,7 @@
 		9643EB1F295949CD00C46A96 /* ShopPalUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShopPalUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9643EB23295949CD00C46A96 /* ShopPalUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopPalUITests.swift; sourceTree = "<group>"; };
 		9643EB25295949CD00C46A96 /* ShopPalUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopPalUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		967A82E7295CE8F700E5FD82 /* ShopPal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = ShopPal; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +76,7 @@
 		9643EAFB295949CC00C46A96 = {
 			isa = PBXGroup;
 			children = (
+				967A82E6295CE8F700E5FD82 /* Packages */,
 				9643EB06295949CC00C46A96 /* ShopPal */,
 				9643EB18295949CD00C46A96 /* ShopPalTests */,
 				9643EB22295949CD00C46A96 /* ShopPalUITests */,
@@ -127,6 +129,14 @@
 				9643EB25295949CD00C46A96 /* ShopPalUITestsLaunchTests.swift */,
 			);
 			path = ShopPalUITests;
+			sourceTree = "<group>";
+		};
+		967A82E6295CE8F700E5FD82 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				967A82E7295CE8F700E5FD82 /* ShopPal */,
+			);
+			name = Packages;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
