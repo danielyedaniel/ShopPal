@@ -37,12 +37,11 @@ struct LoginView: View {
                         .frame(width: metrics.size.width*0.85,alignment: .center)
                     
                     //Login button (currently holds no purpose)
-                    Button(action: login) {
+                    NavigationLink(destination: mainScreen()) {
                         Text("Login")
-                            .frame(width: metrics.size.width*0.7, height:metrics.size.height*0.01)
+                        .frame(width: metrics.size.width*0.7, height:metrics.size.height*0.01)
                     }
                     .buttonStyle(RoundedButtonStyle())
-
                     //New user creation button
                     NavigationLink(destination: CreateUserScreen()) {
                         Text("New User")
@@ -95,6 +94,7 @@ struct CreateUserScreen: View {
                         print("Username: \(username)")
                         print("Password: \(password)")
                         print("Confirm Password: \(confirmPassword)")
+                        
                         if(password==confirmPassword){
                             print("Success")
                         }else{
@@ -106,7 +106,39 @@ struct CreateUserScreen: View {
                 }
             }
         }
+    }
+}
 
+//This will be the main screen
+struct mainScreen: View {
+    var body: some View {
+        TabView {
+            HomeView()
+                .tabItem {
+                    Image(systemName: "house")
+                    Text("Home")
+                }
+            SettingsView()
+                .tabItem {
+                    Image(systemName: "gear")
+                    Text("Settings")
+                }
+        }
+        .navigationBarBackButtonHidden(true)
+    }
+}
+
+//Temp
+struct HomeView: View {
+    var body: some View {
+        Text("This is the home view")
+    }
+}
+
+//Temp
+struct SettingsView: View {
+    var body: some View {
+        Text("This is the settings view")
     }
 }
 
