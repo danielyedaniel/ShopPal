@@ -1,6 +1,5 @@
-
-
 import SwiftUI
+import Charts
 
 struct LoginView: View {
     
@@ -123,6 +122,11 @@ struct mainScreen: View {
                     Image(systemName: "gear")
                     Text("Settings")
                 }
+            ChartView()
+                .tabItem{
+                    Image(systemName: "airpodpro.right")
+                    Text("Chart")
+                }
         }
         .navigationBarBackButtonHidden(true)
     }
@@ -139,6 +143,54 @@ struct HomeView: View {
 struct SettingsView: View {
     var body: some View {
         Text("This is the settings view")
+    }
+}
+
+//Temp
+struct ChartView: View {
+    var body: some View {
+        VStack {
+            BarChart()
+                .frame(width: 300, height: 300)
+            List {
+                ForEach(0..<5) { index in
+                    Text("Item #(index + 1)")
+                }
+            }
+        }
+    }
+}
+
+//Temp
+struct ToyShape: Identifiable {
+    var type: String
+    var count: Double
+    var id = UUID()
+}
+
+//Temp
+var data: [ToyShape] = [
+    .init(type: "Cube", count: 5),
+    .init(type: "Sphere", count: 4),
+    .init(type: "Pyramid", count: 4)
+]
+//Temp
+struct BarChart: View {
+    var body: some View {
+        Chart {
+            BarMark(
+                x: .value("Shape Type", data[0].type),
+                y: .value("Total Count", data[0].count)
+            )
+            BarMark(
+                 x: .value("Shape Type", data[1].type),
+                 y: .value("Total Count", data[1].count)
+            )
+            BarMark(
+                 x: .value("Shape Type", data[2].type),
+                 y: .value("Total Count", data[2].count)
+            )
+        }
     }
 }
 
