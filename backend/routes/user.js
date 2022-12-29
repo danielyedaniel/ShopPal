@@ -56,7 +56,7 @@ router.post("/login", async (req, res) => {
     if (error) return res.status(400).json(error.details);
 
     const user = (await ddbClient.get({TableName: "ShopPal", Key: { email: req.body.email, receiptDate: "profile" }}).promise())
-    if (Object.keys(user).length == 0) return res.json("Wrong email or password")
+    if (Object.keys(user).length == 0) return res.status(400).json("Wrong email or password")
 
     const validPassword = await bcrypt.compare(req.body.password, user.Item.password);
     if (!validPassword) return res.status(400).json("Wrong email or password");
