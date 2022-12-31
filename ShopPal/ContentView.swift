@@ -134,8 +134,24 @@ struct mainScreen: View {
 
 //Temp
 struct HomeView: View {
+    let groceryList = ["Apples", "Bananas", "Oranges", "Strawberries"]
+
+    @State private var checked = [Bool](repeating: false, count: 4)
+
     var body: some View {
-        Text("This is the home view")
+        List {
+            ForEach(groceryList, id: \.self) { grocery in
+                HStack {
+                    Text(grocery)
+                    Spacer()
+                    Button(action: {
+                        self.checked[self.groceryList.firstIndex(of: grocery)!] = !self.checked[self.groceryList.firstIndex(of: grocery)!]
+                    }) {
+                        Image(systemName: self.checked[self.groceryList.firstIndex(of: grocery)!] ? "checkmark.square" : "square")
+                    }
+                }
+            }
+        }
     }
 }
 
