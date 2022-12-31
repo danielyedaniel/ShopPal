@@ -117,15 +117,15 @@ struct mainScreen: View {
                     Image(systemName: "house")
                     Text("Home")
                 }
-            SettingsView()
-                .tabItem {
-                    Image(systemName: "gear")
-                    Text("Settings")
-                }
             ChartView()
                 .tabItem{
                     Image(systemName: "airpodpro.right")
                     Text("Chart")
+                }
+            SettingsView()
+                .tabItem {
+                    Image(systemName: "gear")
+                    Text("Settings")
                 }
         }
         .navigationBarBackButtonHidden(true)
