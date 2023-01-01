@@ -1,10 +1,20 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const multer = require("multer");
 
 const userRoute = require("./routes/user");
 const receiptRoute = require("./routes/receipt");
 const historyRoute = require("./routes/history");
 const auth = require("./middleware/auth");
+
+
+process.on("uncaughtException", (err, origin) => {
+    console.log("Uncaught Exception:", err, "Origin", origin);
+});
+
+process.on("unhandledRejection", (reason, promise) => {
+    console.log("Unhandled Rejection at:", promise, "reason:", reason);
+});
 
 const app = express();
 
@@ -16,7 +26,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/user", userRoute);
-app.use("/receipt", auth, receiptRoute);
+app.use("/receipt", receiptRoute);
 app.use("/history", auth, historyRoute);
 
 const port = process.env.PORT || 3000;
