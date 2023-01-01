@@ -1,21 +1,54 @@
 import SwiftUI
 import Charts
 
-struct SuperTextField: View {
-    var placeholder: Text
-        @Binding var text: String
-        var editingChanged: (Bool)->() = { _ in }
-        var commit: ()->() = { }
-        
-        var body: some View {
-            ZStack(alignment: .leading) {
-                if text.isEmpty { placeholder }
-                TextField("", text: $text, onEditingChanged: editingChanged, onCommit: commit)
-            }
-        }
+struct HybridTextFieldUsageView: View {
+    @State var password: String = "password"
+    var body: some View {
+        HybridTextField(text: $password, titleKey: "password")
+    }
 }
 
+struct HybridTextField: View {
+    @Binding var text: String
+    @State var isSecure: Bool = true
+    var titleKey: String
+    var body: some View {
+        HStack{
+            Group{
+                if isSecure{
+                    SecureField(titleKey, text: $text)
+                }else{
+                    TextField(titleKey, text: $text)
+                }
+            }
+                .animation(.easeInOut(duration: 0.2), value: isSecure)
+                .textFieldStyle(PlainTextFieldStyle())
+                .multilineTextAlignment(.leading)
+                .font(.system(size: 20, weight: .medium, design: .default))
+                .padding(.horizontal, 16)
+                .autocapitalization(.none)
+            Button(action: {
+                isSecure.toggle()
+            }, label: {
+                Image(systemName: !isSecure ? "eye.slash" : "eye" )
+            })
+            .padding(.trailing)
+        }
+    }
+}
 
+extension View {
+    func placeholder<Content: View>(
+        when shouldShow: Bool,
+        alignment: Alignment = .leading,
+        @ViewBuilder placeholder: () -> Content) -> some View {
+
+        ZStack(alignment: alignment) {
+            placeholder().opacity(shouldShow ? 1 : 0)
+            self
+        }
+    }
+}
 
 struct LoginView: View {
     
@@ -37,11 +70,13 @@ struct LoginView: View {
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 380.0)
                     .cornerRadius(30)
-                    //.offset(x: 0, y: -200)
+
                 Spacer()
-                SuperTextField(
-                    placeholder: Text("Username or email").foregroundColor(Color(.lightGray)),
-                        text: $usernameOrEmail)
+                
+                TextField("Username or email", text: $usernameOrEmail)
+                    .placeholder(when: usernameOrEmail.isEmpty) {
+                        Text("Username or email").foregroundColor(Color(.lightGray))
+                    }
                     .textFieldStyle(PlainTextFieldStyle())
                     .multilineTextAlignment(.leading)
                     .font(.system(size: 20, weight: .medium, design: .default))
@@ -51,40 +86,25 @@ struct LoginView: View {
                     .background(border)
                     .padding(.leading)
                     .padding(.trailing)
-                    //.offset(x: 0, y: -100)
                     .scaledToFit()
-                    
-                SecureField( "Password", text: $password)
-                    .textFieldStyle(PlainTextFieldStyle())
-                    .multilineTextAlignment(.leading)
+                    .padding(4)
+                    .autocapitalization(.none)
+                 
+                HybridTextField(text: $password, titleKey: "Password")
+                    .placeholder(when: password.isEmpty) {
+                        Text("Password").foregroundColor(Color(.lightGray))
+                            .padding(.horizontal)
+                    }
                     .font(.system(size: 20, weight: .medium, design: .default))
                     .padding(.vertical, 12)
-                    .padding(.horizontal, 16)
                     .foregroundColor(.white)
                     .background(border)
+                    .padding(.bottom, 25)
                     .padding(.leading)
                     .padding(.trailing)
-                    .frame(width: 400)
-                    //.offset(x: 0, y: -90)
+                    .padding(4)
                     .scaledToFit()
-                
-//                SuperTextField (placeholder: Text("Password").foregroundColor(Color(.lightGray)), text: $password)
-//                    .textFieldStyle(PlainTextFieldStyle())
-//                    .multilineTextAlignment(.leading)
-//                    .font(.system(size: 20, weight: .medium, design: .default))
-//                    .padding(.vertical, 12)
-//                    .padding(.horizontal, 16)
-//                    .foregroundColor(.white)
-//                    .background(border)
-//                    .padding(.leading)
-//                    .padding(.trailing)
-//                    .frame(width: 400)
-//                    //.offset(x: 0, y: -90)
-//                    .scaledToFit()
-//
-                
-                Spacer()
-                
+                 
                 Button(action: {
                     
                     
@@ -99,7 +119,6 @@ struct LoginView: View {
                         .frame(width: 220, height: 60)
                         .background(Color.green)
                         .cornerRadius(15)
-                        //.offset(x: 0, y: -50)
             
                 }
                 Spacer()
