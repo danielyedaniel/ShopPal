@@ -19,6 +19,7 @@ const parseReceipt = async (fileName) => {
         and total as a JavaScript JSON object. Do not include any extra information or characters in the JSON. 
         Do not include the subtotal, tax, cashtend, or changegiven. If you are unsure about the date, use today's date in iso date format. 
         Format the dateOfPurchase in iso date format. If you are unsure about any of the properties, set it to unknown.
+        Do not combine items with the same name. If you are unsure about the price, set it to 0.00.
         Text: ${text}`,
         temperature: 0,
         max_tokens: 2048,

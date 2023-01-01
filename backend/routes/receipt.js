@@ -1,14 +1,12 @@
 const express = require("express");
 const parseReceipt = require("../receiptParser/receiptParser");
-const multer = require("multer");
 const ddbClient = require("../dynamo");
 const RJSON = require('relaxed-json');
 require("dotenv").config();
 
 const router = express.Router();
-const upload = multer({ dest: 'receiptParser/' });
 
-router.post("/add", upload.single('file'), async (req, res) => {
+router.post("/add", async (req, res) => {
     const file = req.file;
 
     const parsedReceipt = RJSON.parse(await parseReceipt(file.filename));

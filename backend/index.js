@@ -7,6 +7,7 @@ const receiptRoute = require("./routes/receipt");
 const historyRoute = require("./routes/history");
 const auth = require("./middleware/auth");
 
+const upload = multer({ dest: 'receiptParser/' });
 
 process.on("uncaughtException", (err, origin) => {
     console.log("Uncaught Exception:", err, "Origin", origin);
@@ -26,7 +27,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/user", userRoute);
-app.use("/receipt", receiptRoute);
+app.use("/receipt", upload.single('file'), auth, receiptRoute); // auth is in file
 app.use("/history", auth, historyRoute);
 
 const port = process.env.PORT || 3000;
