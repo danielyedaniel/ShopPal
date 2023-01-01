@@ -15,6 +15,8 @@ struct SuperTextField: View {
         }
 }
 
+
+
 struct LoginView: View {
     
     //Variables to store input field data
@@ -29,13 +31,14 @@ struct LoginView: View {
                 .ignoresSafeArea()
             
             VStack {
+                Spacer()
                 Image("LongLogo")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 380.0)
                     .cornerRadius(30)
-                    .offset(x: 0, y: -200)
-                
+                    //.offset(x: 0, y: -200)
+                Spacer()
                 SuperTextField(
                     placeholder: Text("Username or email").foregroundColor(Color(.lightGray)),
                         text: $usernameOrEmail)
@@ -46,10 +49,12 @@ struct LoginView: View {
                     .padding(.horizontal, 16)
                     .foregroundColor(.white)
                     .background(border)
-                    .frame(width: 400)
-                    .offset(x: 0, y: -100)
-                
-                SuperTextField (placeholder: Text("Password").foregroundColor(Color(.lightGray)), text: $password)
+                    .padding(.leading)
+                    .padding(.trailing)
+                    //.offset(x: 0, y: -100)
+                    .scaledToFit()
+                    
+                SecureField( "Password", text: $password)
                     .textFieldStyle(PlainTextFieldStyle())
                     .multilineTextAlignment(.leading)
                     .font(.system(size: 20, weight: .medium, design: .default))
@@ -57,20 +62,49 @@ struct LoginView: View {
                     .padding(.horizontal, 16)
                     .foregroundColor(.white)
                     .background(border)
+                    .padding(.leading)
+                    .padding(.trailing)
                     .frame(width: 400)
-                    .offset(x: 0, y: -90)
+                    //.offset(x: 0, y: -90)
+                    .scaledToFit()
                 
-                Button(action: {print("bruh")}) {
+//                SuperTextField (placeholder: Text("Password").foregroundColor(Color(.lightGray)), text: $password)
+//                    .textFieldStyle(PlainTextFieldStyle())
+//                    .multilineTextAlignment(.leading)
+//                    .font(.system(size: 20, weight: .medium, design: .default))
+//                    .padding(.vertical, 12)
+//                    .padding(.horizontal, 16)
+//                    .foregroundColor(.white)
+//                    .background(border)
+//                    .padding(.leading)
+//                    .padding(.trailing)
+//                    .frame(width: 400)
+//                    //.offset(x: 0, y: -90)
+//                    .scaledToFit()
+//
+                
+                Spacer()
+                
+                Button(action: {
+                    
+                    
+                    //Here we need to check database to see if username/email and password are correct 
+                    print("Check data base")
+                    
+                    
+                }) {
                     Text("Login")
                         .font(.system(size: 20, weight: .bold, design: .default))
                         .foregroundColor(.black)
                         .frame(width: 220, height: 60)
                         .background(Color.green)
                         .cornerRadius(15)
-                        .offset(x: 0, y: -50)
-                    
+                        //.offset(x: 0, y: -50)
+            
                 }
-                
+                Spacer()
+                Spacer()
+                Spacer()
                 
             }
         }
