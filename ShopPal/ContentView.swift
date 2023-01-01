@@ -1,63 +1,161 @@
 import SwiftUI
 import Charts
 
+struct SuperTextField: View {
+    var placeholder: Text
+        @Binding var text: String
+        var editingChanged: (Bool)->() = { _ in }
+        var commit: ()->() = { }
+        
+        var body: some View {
+            ZStack(alignment: .leading) {
+                if text.isEmpty { placeholder }
+                TextField("", text: $text, onEditingChanged: editingChanged, onCommit: commit)
+            }
+        }
+}
+
 struct LoginView: View {
     
     //Variables to store input field data
-    @State private var username: String = ""
+    @State private var usernameOrEmail: String = ""
     @State private var password: String = ""
     @State private var showCreateUserScreen: Bool = true
 
     var body: some View {
+        
+        ZStack {
+            Color(red: 0.06, green: 0.06, blue: 0.06)
+                .ignoresSafeArea()
+            
+            VStack {
+                Image("LongLogo")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 380.0)
+                    .cornerRadius(30)
+                    .offset(x: 0, y: -200)
+                
+                SuperTextField(
+                    placeholder: Text("Username or email").foregroundColor(Color(.lightGray)),
+                        text: $usernameOrEmail)
+                    .textFieldStyle(PlainTextFieldStyle())
+                    .multilineTextAlignment(.leading)
+                    .font(.system(size: 20, weight: .medium, design: .default))
+                    .padding(.vertical, 12)
+                    .padding(.horizontal, 16)
+                    .foregroundColor(.white)
+                    .background(border)
+                    .frame(width: 400)
+                    .offset(x: 0, y: -100)
+                
+                SuperTextField (placeholder: Text("Password").foregroundColor(Color(.lightGray)), text: $password)
+                    .textFieldStyle(PlainTextFieldStyle())
+                    .multilineTextAlignment(.leading)
+                    .font(.system(size: 20, weight: .medium, design: .default))
+                    .padding(.vertical, 12)
+                    .padding(.horizontal, 16)
+                    .foregroundColor(.white)
+                    .background(border)
+                    .frame(width: 400)
+                    .offset(x: 0, y: -90)
+                
+                Button(action: {print("bruh")}) {
+                    Text("Login")
+                        .font(.system(size: 20, weight: .bold, design: .default))
+                        .foregroundColor(.black)
+                        .frame(width: 220, height: 60)
+                        .background(Color.green)
+                        .cornerRadius(15)
+                        .offset(x: 0, y: -50)
+                    
+                }
+                
+                
+            }
+        }
+
+        /*
         //Navigation view for the new user page
         NavigationView {
             
             //Geometry Reader to bind elements to certain margins of parent view
             GeometryReader { metrics in
                 
-                //Vstack containing all views
-                VStack (alignment: .center){
+                ZStack {
+                    Color.black
+                        .ignoresSafeArea()
                     
-                    //Title
-                    Text("Login:")
-                        .padding(20)
-                        .font(.system(.title, design: .monospaced))
-                    
-                    //Username field
-                    TextField("Username", text: $username)
-                        .textFieldStyle(.roundedBorder)
-                        .padding(5)
-                        .frame(width: metrics.size.width*0.85,alignment: .center)
-                    
-                    //Password field
-                    SecureField("Password", text: $password)
-                        .textFieldStyle(.roundedBorder)
-                        .padding(5)
-                        .frame(width: metrics.size.width*0.85,alignment: .center)
-                    
-                    //Login button (currently holds no purpose)
-                    NavigationLink(destination: mainScreen()) {
-                        Text("Login")
-                        .frame(width: metrics.size.width*0.7, height:metrics.size.height*0.01)
+                    //Vstack containing all views
+                    VStack (){
+                        
+                        Color.black
+                            .ignoresSafeArea()
+                        
+                        Image("Logo")
+                            .resizable()
+                            .frame(width: 350, height: 350)
+                            .cornerRadius(50)
+                        
+                        //Title
+                        Text("Login:")
+                            .padding(20)
+                            .font(.system(.title, design: .monospaced))
+                        
+                        //Username field
+                        TextField("Username", text: $username)
+                            .textFieldStyle(.roundedBorder)
+                            .padding(5)
+                            .frame(width: metrics.size.width*0.85,alignment: .center)
+                        
+                        //Password field
+                        SecureField("Password", text: $password)
+                            .textFieldStyle(.roundedBorder)
+                            .padding(5)
+                            .frame(width: metrics.size.width*0.85,alignment: .center)
+                        
+                        //Login button (currently holds no purpose)
+                        NavigationLink(destination: mainScreen()) {
+                            Text("Login")
+                            .frame(width: metrics.size.width*0.7, height:metrics.size.height*0.01)
+                        }
+                        .buttonStyle(RoundedButtonStyle())
+                        //New user creation button
+                        NavigationLink(destination: CreateUserScreen()) {
+                            Text("New User")
+                            .frame(width: metrics.size.width*0.7, height:metrics.size.height*0.01)
+                        }
+                        .buttonStyle(RoundedButtonStyle())
                     }
-                    .buttonStyle(RoundedButtonStyle())
-                    //New user creation button
-                    NavigationLink(destination: CreateUserScreen()) {
-                        Text("New User")
-                        .frame(width: metrics.size.width*0.7, height:metrics.size.height*0.01)
-                    }
-                    .buttonStyle(RoundedButtonStyle())
                 }
+                
+                
 
             }
             .frame(width: 350, height: 450, alignment: .center)
         }
         .frame(alignment:.center)
+        */
     }
-
+    
+    var border: some View {
+        RoundedRectangle(cornerRadius: 16)
+          .strokeBorder(
+            LinearGradient(
+              gradient: .init(
+                colors: [
+                    Color(red: 0.08, green: 0.64, blue: 0.15)
+                ]
+              ),
+              startPoint: .topLeading,
+              endPoint: .bottomTrailing
+            )
+          )
+      }
+    
     func login() {
         // Perform login action here
-        print("Username: \(username)")
+        print("Username: \(usernameOrEmail)")
         print("Password: \(password)")
     }
 }
