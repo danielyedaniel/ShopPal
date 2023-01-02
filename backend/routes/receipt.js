@@ -34,7 +34,7 @@ router.post("/add", async (req, res) => {
     };
 
     const params = {
-        TableName: "ShopPal",
+        TableName: process.env.AWS_DyanmoDB_Table,
         Item: receipt,
     }
 

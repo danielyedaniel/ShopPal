@@ -1,6 +1,7 @@
 const bcrypt = require("bcrypt");
 const Joi = require("joi");
 const ddbClient = require("../aws/dynamo");
+require("dotenv").config();
 
 const auth = async (req, res, next) => {
     const schema = Joi.object({
@@ -13,7 +14,7 @@ const auth = async (req, res, next) => {
     const { error } = schema.validate({ email: req.body.email, password: req.body.password });
     if (error) return res.status(400).json(error.details);
 
-    const user = (await ddbClient.get({TableName: "ShopPal", Key: { email: req.body.email, receiptDate: "profile" }}).promise())
+    const user = (await ddbClient.get({TableName: process.env.AWS_DyanmoDB_Table, Key: { email: req.body.email, receiptDate: "profile" }}).promise())
     if (Object.keys(user).length == 0) return res.status(400).json("Wrong email or password")
 
     const validPassword = await bcrypt.compare(req.body.password, user.Item.password);

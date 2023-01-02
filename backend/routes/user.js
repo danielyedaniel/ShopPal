@@ -2,6 +2,7 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const ddbClient = require("../aws/dynamo");
 const Joi = require("joi");
+require("dotenv").config();
 
 const router = express.Router();
 
@@ -29,14 +30,14 @@ router.post("/signup", async (req, res) => {
     const { error } = schema.validate(user);
     if (error) return res.status(400).json(error.details);
 
-    const emailInUse = (await ddbClient.get({TableName: "ShopPal", Key: { email: user.email, receiptDate: "profile" }}).promise())
+    const emailInUse = (await ddbClient.get({TableName: process.env.AWS_DyanmoDB_Table, Key: { email: user.email, receiptDate: "profile" }}).promise())
     if (Object.keys(emailInUse).length == 1) return res.json("Email already exists.")
 
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(user.password, salt);
 
     const params = {
-        TableName: "ShopPal",
+        TableName: process.env.AWS_DyanmoDB_Table,
         Item: user,
     }
 
