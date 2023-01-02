@@ -50,6 +50,38 @@ extension View {
     }
 }
 
+struct SignUpView: View {
+    @State private var username: String = ""
+    @State private var password: String = ""
+    @State private var confirmPassword: String = ""
+    var body: some View {
+        VStack{
+            Form {
+                Section {
+                    TextField("Username", text: $username)
+                    SecureField("Password", text: $password)
+                    SecureField("Confirm Password", text: $confirmPassword)
+                }
+                Section {
+                    Button(action:{
+                        print("Username: \(username)")
+                        print("Password: \(password)")
+                        print("Confirm Password: \(confirmPassword)")
+                        
+                        if(password==confirmPassword){
+                            print("Success")
+                        }else{
+                            print("Fail")
+                        }
+                    }) {
+                        Text("Submit")
+                    }
+                }
+            }
+        }
+    }
+}
+
 struct LoginView: View {
     
     //Variables to store input field data
@@ -58,7 +90,7 @@ struct LoginView: View {
     @State private var showCreateUserScreen: Bool = true
 
     var body: some View {
-        
+    NavigationView {
         ZStack {
             Color(red: 0.06, green: 0.06, blue: 0.06)
                 .ignoresSafeArea()
@@ -105,28 +137,45 @@ struct LoginView: View {
                     .padding(4)
                     .scaledToFit()
                  
-                Button(action: {
-                    
-                    
-                    //Here we need to check database to see if username/email and password are correct 
-                    print("Check data base")
-                    
-                    
-                }) {
+                NavigationLink(destination: mainScreen()){
                     Text("Login")
                         .font(.system(size: 20, weight: .bold, design: .default))
                         .foregroundColor(.black)
                         .frame(width: 220, height: 60)
                         .background(Color.green)
                         .cornerRadius(15)
-            
                 }
+                
                 Spacer()
                 Spacer()
                 Spacer()
                 
+                
+                HStack {
+                    
+                    Text("Don't have an account?")
+                        .font(.system(size: 20, weight: .regular, design: .default))
+                        .background(Color.black)
+                        .foregroundColor(Color(.lightGray))
+                    
+                    
+                        NavigationLink(destination: SignUpView()){
+                            Text("SIGN UP")
+                                .font(.system(size: 20, weight: .bold, design: .default))
+                                .background(Color.black)
+                                .foregroundColor(.green)
+                        }
+                    }
+                
+                
+                }
+              
             }
         }
+        
+    
+        
+        
 
         /*
         //Navigation view for the new user page
@@ -225,39 +274,6 @@ struct RoundedButtonStyle: ButtonStyle {
     }
 }
 
-//New user screen
-struct CreateUserScreen: View {
-    @State private var username: String = ""
-    @State private var password: String = ""
-    @State private var confirmPassword: String = ""
-    
-    var body: some View {
-        VStack{
-            Form {
-                Section {
-                    TextField("Username", text: $username)
-                    SecureField("Password", text: $password)
-                    SecureField("Confirm Password", text: $confirmPassword)
-                }
-                Section {
-                    Button(action:{
-                        print("Username: \(username)")
-                        print("Password: \(password)")
-                        print("Confirm Password: \(confirmPassword)")
-                        
-                        if(password==confirmPassword){
-                            print("Success")
-                        }else{
-                            print("Fail")
-                        }
-                    }) {
-                        Text("Submit")
-                    }
-                }
-            }
-        }
-    }
-}
 
 //This will be the main screen
 struct mainScreen: View {
@@ -270,7 +286,7 @@ struct mainScreen: View {
                 }
             ChartView()
                 .tabItem{
-                    Image(systemName: "airpodpro.right")
+                    Image(systemName: "chart.bar.fill")
                     Text("Chart")
                 }
             SettingsView()
