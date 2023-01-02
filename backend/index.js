@@ -7,7 +7,15 @@ const receiptRoute = require("./routes/receipt");
 const historyRoute = require("./routes/history");
 const auth = require("./middleware/auth");
 
-const upload = multer({ dest: 'receiptParser/' });
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'receiptParser/');
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + '.jpg');
+    }
+});
+const upload = multer({ storage: storage });
 
 process.on("uncaughtException", (err, origin) => {
     console.log("Uncaught Exception:", err, "Origin", origin);
@@ -27,7 +35,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/user", userRoute);
-app.use("/receipt", upload.single('file'), auth, receiptRoute); // auth is in file
+app.use("/receipt", upload.single('file'), auth, receiptRoute);
 app.use("/history", auth, historyRoute);
 
 const port = process.env.PORT || 3000;

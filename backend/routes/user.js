@@ -1,6 +1,6 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
-const ddbClient = require("../dynamo");
+const ddbClient = require("../aws/dynamo");
 const Joi = require("joi");
 
 const router = express.Router();

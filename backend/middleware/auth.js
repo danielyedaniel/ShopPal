@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt");
 const Joi = require("joi");
-const ddbClient = require("../dynamo");
+const ddbClient = require("../aws/dynamo");
 
 const auth = async (req, res, next) => {
     const schema = Joi.object({

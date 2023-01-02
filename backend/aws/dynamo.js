@@ -9,12 +9,4 @@ AWS.config.update({
 
 const ddbClient = new AWS.DynamoDB.DocumentClient();
 
-// const getUsers = async () => {
-//     const params = {
-//         TableName: "ShopPal",
-//     };
-
-//     return await ddbClient.scan(params).promise();
-// };
-
 module.exports = ddbClient;

@@ -1,6 +1,8 @@
 const express = require("express");
 const parseReceipt = require("../receiptParser/receiptParser");
-const ddbClient = require("../dynamo");
+const ddbClient = require("../aws/dynamo");
+const s3 = require("../aws/s3");
+const fs = require("fs");
 const RJSON = require('relaxed-json');
 require("dotenv").config();
 
@@ -8,6 +10,17 @@ const router = express.Router();
 
 router.post("/add", async (req, res) => {
     const file = req.file;
+
+    if (!file) return res.status(400).json("No file uploaded");
+
+    // Upload file to S3
+    const s3params = {
+        Bucket: process.env.AWS_S3_BUCKET_NAME,
+        Key: file.filename,
+        Body: fs.readFileSync(file.path),
+    };
+
+    const uploadedImage = await s3.upload(s3params).promise();
 
     const parsedReceipt = RJSON.parse(await parseReceipt(file.filename));
 
@@ -17,6 +30,7 @@ router.post("/add", async (req, res) => {
         store: parsedReceipt.storeName,
         items: parsedReceipt.items,
         total: parsedReceipt.total,
+        image: uploadedImage.Location,
     };
 
     const params = {

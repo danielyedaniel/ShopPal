@@ -35,8 +35,4 @@ const parseReceipt = async (fileName) => {
     return items;
 }
 
-// parseReceipt().then(items => {
-//   console.log(items);
-// });
-
 module.exports = parseReceipt;
