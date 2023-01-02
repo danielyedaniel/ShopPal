@@ -1,12 +1,12 @@
 import SwiftUI
 import Charts
 
-struct HybridTextFieldUsageView: View {
+/*struct HybridTextFieldUsageView: View {
     @State var password: String = "password"
     var body: some View {
         HybridTextField(text: $password, titleKey: "password")
     }
-}
+}*/
 
 struct HybridTextField: View {
     @Binding var text: String
@@ -31,6 +31,7 @@ struct HybridTextField: View {
                 isSecure.toggle()
             }, label: {
                 Image(systemName: !isSecure ? "eye.slash" : "eye" )
+                    
             })
             .padding(.trailing)
         }
@@ -87,7 +88,8 @@ struct LoginView: View {
     //Variables to store input field data
     @State private var usernameOrEmail: String = ""
     @State private var password: String = ""
-    @State private var showCreateUserScreen: Bool = true
+    @State private var isLoginInfoCorrect: Bool = true
+    @State private var messageToUser: String = ""
 
     var body: some View {
     NavigationView {
@@ -96,14 +98,17 @@ struct LoginView: View {
                 .ignoresSafeArea()
             
             VStack {
-                Spacer()
-                Image("LongLogo")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 380.0)
-                    .cornerRadius(30)
-
-                Spacer()
+                
+                Group{
+                    Spacer()
+                    Image("LongLogo")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 380.0)
+                        .cornerRadius(30)
+                    
+                    Spacer()
+                }
                 
                 TextField("Username or email", text: $usernameOrEmail)
                     .placeholder(when: usernameOrEmail.isEmpty) {
@@ -127,8 +132,11 @@ struct LoginView: View {
                         Text("Password").foregroundColor(Color(.lightGray))
                             .padding(.horizontal)
                     }
+                    .textFieldStyle(PlainTextFieldStyle())
+                    .multilineTextAlignment(.leading)
                     .font(.system(size: 20, weight: .medium, design: .default))
                     .padding(.vertical, 12)
+                    .padding(.horizontal, 16)
                     .foregroundColor(.white)
                     .background(border)
                     .padding(.bottom, 25)
@@ -136,14 +144,41 @@ struct LoginView: View {
                     .padding(.trailing)
                     .padding(4)
                     .scaledToFit()
-                 
-                NavigationLink(destination: mainScreen()){
-                    Text("Login")
-                        .font(.system(size: 20, weight: .bold, design: .default))
-                        .foregroundColor(.black)
-                        .frame(width: 220, height: 60)
-                        .background(Color.green)
-                        .cornerRadius(15)
+                
+                if isLoginInfoCorrect {
+                    
+                    NavigationLink(destination: mainScreen()){
+                        Text("Login")
+                            .font(.system(size: 20, weight: .bold, design: .default))
+                            .foregroundColor(.black)
+                            .frame(width: 220, height: 60)
+                            .background(Color.green)
+                            .cornerRadius(15)
+                    }
+                }
+                else{
+                    Button(action: {
+                        
+                        messageToUser = "Incorrect email/username or password"
+                        
+                    }, label: {
+                        Text("Login")
+                            .font(.system(size: 20, weight: .bold, design: .default))
+                            .foregroundColor(.black)
+                            .frame(width: 220, height: 60)
+                            .background(Color.green)
+                            .cornerRadius(15)
+                        
+                    })
+                }
+                
+                Group{
+                    Spacer()
+                    
+                    Text(messageToUser)
+                        .font(.system(size: 20, weight: .regular, design: .default))
+                        .background(Color.black)
+                        .foregroundColor(Color(.red))
                 }
                 
                 Spacer()
@@ -159,19 +194,22 @@ struct LoginView: View {
                         .foregroundColor(Color(.lightGray))
                     
                     
+                    
                         NavigationLink(destination: SignUpView()){
                             Text("SIGN UP")
                                 .font(.system(size: 20, weight: .bold, design: .default))
                                 .background(Color.black)
                                 .foregroundColor(.green)
                         }
-                    }
-                
-                
+                    
+                    
                 }
-              
+                
+                
             }
+              
         }
+    }
         
     
         
