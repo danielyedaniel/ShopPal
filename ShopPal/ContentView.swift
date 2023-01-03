@@ -165,7 +165,16 @@ struct SignUpView: View {
                 
                 Button(action: {
                     if(password == confirmPassword) {
-                        print("Success")
+                        let accountDetails = NewAccount(firstName: firstName, lastName: lastName, email: email, password: password)
+                        let postRequest = APIRequest(endpoint: "accounts")
+                        postRequest.save(accountDetails, completion: { result in
+                            switch result {
+                            case .success(let account):
+                                print("Success \(account.firstName)")
+                            case .failure(let error):
+                                print("An error occured \(error)")
+                            }
+                        })
                     }
                     else {
                         print("Fail")
