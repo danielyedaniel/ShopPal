@@ -45,8 +45,7 @@
 		9643EB1F295949CD00C46A96 /* ShopPalUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShopPalUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9643EB23295949CD00C46A96 /* ShopPalUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopPalUITests.swift; sourceTree = "<group>"; };
 		9643EB25295949CD00C46A96 /* ShopPalUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopPalUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		967A82E7295CE8F700E5FD82 /* ShopPal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = ShopPal; sourceTree = "<group>"; };
-		BE2DB7432963B09A004E4221 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		967A82E7295CE8F700E5FD82 /* ShopPal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = ShopPal; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,7 +97,6 @@
 		9643EB06295949CC00C46A96 /* ShopPal */ = {
 			isa = PBXGroup;
 			children = (
-				BE2DB7432963B09A004E4221 /* Info.plist */,
 				9643EB07295949CC00C46A96 /* ShopPalApp.swift */,
 				9643EB09295949CC00C46A96 /* ContentView.swift */,
 				9643EB0B295949CD00C46A96 /* Assets.xcassets */,
@@ -429,7 +427,6 @@
 				DEVELOPMENT_ASSET_PATHS = "\"ShopPal/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = ShopPal/Info.plist;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -466,7 +463,6 @@
 				DEVELOPMENT_ASSET_PATHS = "\"ShopPal/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = ShopPal/Info.plist;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
