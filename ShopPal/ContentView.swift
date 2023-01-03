@@ -94,23 +94,6 @@ struct SignUpView: View {
                     .autocapitalization(.none)
                     .disableAutocorrection(true)
                 
-                TextField("Username", text: $username)
-                    .placeholder(when: username.isEmpty) {
-                        Text("Username").foregroundColor(Color(.lightGray))
-                    }
-                    .textFieldStyle(PlainTextFieldStyle())
-                    .multilineTextAlignment(.leading)
-                    .font(.system(size: 20, weight: .medium, design: .default))
-                    .padding(.vertical, 12)
-                    .padding(.horizontal, 16)
-                    .foregroundColor(.white)
-                    .background(border)
-                    .padding(.leading)
-                    .padding(.trailing)
-                    .padding(4)
-                    .autocapitalization(.none)
-                    .disableAutocorrection(true)
-                
                 TextField("Email", text: $email)
                     .placeholder(when: email.isEmpty) {
                         Text("Email").foregroundColor(Color(.lightGray))
