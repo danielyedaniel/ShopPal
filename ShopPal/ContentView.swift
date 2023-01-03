@@ -406,8 +406,10 @@ struct HomeView: View {
 
 //Temp
 struct SettingsView: View {
+    @State private var evan = true
     var body: some View {
-        Text("This is the settings view")
+        Toggle("Evan how the fuck does the database work???", isOn: $evan)
+    
     }
 }
 
