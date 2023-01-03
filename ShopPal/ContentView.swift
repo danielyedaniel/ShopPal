@@ -316,7 +316,7 @@ struct LoginView: View {
                             }
                     }
                 }
-                  
+                .preferredColorScheme(.dark)
             }
         }
     }
