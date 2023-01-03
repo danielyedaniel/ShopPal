@@ -14,6 +14,7 @@
 		9643EB1A295949CD00C46A96 /* ShopPalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9643EB19295949CD00C46A96 /* ShopPalTests.swift */; };
 		9643EB24295949CD00C46A96 /* ShopPalUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9643EB23295949CD00C46A96 /* ShopPalUITests.swift */; };
 		9643EB26295949CD00C46A96 /* ShopPalUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9643EB25295949CD00C46A96 /* ShopPalUITestsLaunchTests.swift */; };
+		BE2DB7472963C3FC004E4221 /* AccountCreationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2DB7462963C3FC004E4221 /* AccountCreationRequest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,7 +46,9 @@
 		9643EB1F295949CD00C46A96 /* ShopPalUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShopPalUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9643EB23295949CD00C46A96 /* ShopPalUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopPalUITests.swift; sourceTree = "<group>"; };
 		9643EB25295949CD00C46A96 /* ShopPalUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopPalUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		967A82E7295CE8F700E5FD82 /* ShopPal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = ShopPal; sourceTree = "<group>"; };
+		967A82E7295CE8F700E5FD82 /* ShopPal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = ShopPal; sourceTree = "<group>"; };
+		BE2DB7462963C3FC004E4221 /* AccountCreationRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCreationRequest.swift; sourceTree = "<group>"; };
+		BE2DB7482963C434004E4221 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,11 +100,13 @@
 		9643EB06295949CC00C46A96 /* ShopPal */ = {
 			isa = PBXGroup;
 			children = (
+				BE2DB7482963C434004E4221 /* Info.plist */,
 				9643EB07295949CC00C46A96 /* ShopPalApp.swift */,
 				9643EB09295949CC00C46A96 /* ContentView.swift */,
 				9643EB0B295949CD00C46A96 /* Assets.xcassets */,
 				9643EB0D295949CD00C46A96 /* ShopPal.entitlements */,
 				9643EB0E295949CD00C46A96 /* Preview Content */,
+				BE2DB7462963C3FC004E4221 /* AccountCreationRequest.swift */,
 			);
 			path = ShopPal;
 			sourceTree = "<group>";
@@ -271,6 +276,7 @@
 			files = (
 				9643EB0A295949CC00C46A96 /* ContentView.swift in Sources */,
 				9643EB08295949CC00C46A96 /* ShopPalApp.swift in Sources */,
+				BE2DB7472963C3FC004E4221 /* AccountCreationRequest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -427,6 +433,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"ShopPal/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ShopPal/Info.plist;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -463,6 +470,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"ShopPal/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ShopPal/Info.plist;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
