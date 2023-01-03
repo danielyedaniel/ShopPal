@@ -462,7 +462,6 @@ struct BarChart: View {
 //Main
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        SignUpView()
-        //LoginView()
+        LoginView()
     }
 }
