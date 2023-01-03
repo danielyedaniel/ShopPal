@@ -1,6 +1,13 @@
 import SwiftUI
 import Charts
 
+/*struct HybridTextFieldUsageView: View {
+    @State var password: String = "password"
+    var body: some View {
+        HybridTextField(text: $password, titleKey: "password")
+    }
+}*/
+
 struct HybridTextField: View {
     @Binding var text: String
     @State var isSecure: Bool = true
@@ -18,6 +25,7 @@ struct HybridTextField: View {
                 .textFieldStyle(PlainTextFieldStyle())
                 .multilineTextAlignment(.leading)
                 .font(.system(size: 20, weight: .medium, design: .default))
+                .padding(.horizontal, 16)
                 .autocapitalization(.none)
             Button(action: {
                 isSecure.toggle()
@@ -25,6 +33,7 @@ struct HybridTextField: View {
                 Image(systemName: !isSecure ? "eye.slash" : "eye" )
                     
             })
+            .padding(.trailing)
         }
     }
 }
@@ -121,6 +130,7 @@ struct LoginView: View {
                 HybridTextField(text: $password, titleKey: "Password")
                     .placeholder(when: password.isEmpty) {
                         Text("Password").foregroundColor(Color(.lightGray))
+                            .padding(.horizontal)
                     }
                     .textFieldStyle(PlainTextFieldStyle())
                     .multilineTextAlignment(.leading)
@@ -129,11 +139,11 @@ struct LoginView: View {
                     .padding(.horizontal, 16)
                     .foregroundColor(.white)
                     .background(border)
+                    .padding(.bottom, 25)
                     .padding(.leading)
                     .padding(.trailing)
                     .padding(4)
                     .scaledToFit()
-                
                 
                 if isLoginInfoCorrect {
                     
@@ -144,7 +154,6 @@ struct LoginView: View {
                             .frame(width: 220, height: 60)
                             .background(Color.green)
                             .cornerRadius(15)
-                            .padding(.top, 20)
                     }
                 }
                 else{
@@ -159,7 +168,6 @@ struct LoginView: View {
                             .frame(width: 220, height: 60)
                             .background(Color.green)
                             .cornerRadius(15)
-                            .padding(.top, 20)
                         
                     })
                 }
@@ -179,13 +187,18 @@ struct LoginView: View {
                 
                 
                 HStack {
+                    
                     Text("Don't have an account?")
                         .font(.system(size: 20, weight: .regular, design: .default))
+                        .background(Color.black)
                         .foregroundColor(Color(.lightGray))
+                    
+                    
                     
                         NavigationLink(destination: SignUpView()){
                             Text("SIGN UP")
                                 .font(.system(size: 20, weight: .bold, design: .default))
+                                .background(Color.black)
                                 .foregroundColor(.green)
                         }
                     
