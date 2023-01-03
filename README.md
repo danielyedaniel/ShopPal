@@ -1,3 +1,3 @@
 # ShopPal
 
-Super advanced shopping assistant that can save millions of dollars
+A description of this package.
