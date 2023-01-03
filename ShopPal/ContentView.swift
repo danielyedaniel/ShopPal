@@ -43,26 +43,67 @@ extension View {
 }
 
 struct SignUpView: View {
-    @State private var firstName: String = ""
-    @State private var lastName: String = ""
     @State private var username: String = ""
-    @State private var email: String = ""
     @State private var password: String = ""
     @State private var confirmPassword: String = ""
     var body: some View {
+        VStack{
+            Form {
+                Section {
+                    TextField("Username", text: $username)
+                    SecureField("Password", text: $password)
+                    SecureField("Confirm Password", text: $confirmPassword)
+                }
+                Section {
+                    Button(action:{
+                        print("Username: \(username)")
+                        print("Password: \(password)")
+                        print("Confirm Password: \(confirmPassword)")
+                        
+                        if(password==confirmPassword){
+                            print("Success")
+                        }else{
+                            print("Fail")
+                        }
+                    }) {
+                        Text("Submit")
+                    }
+                }
+            }
+        }
+    }
+}
+
+struct LoginView: View {
+    
+    //Variables to store input field data
+    @State private var usernameOrEmail: String = ""
+    @State private var password: String = ""
+    @State private var isLoginInfoCorrect: Bool = true
+    @State private var messageToUser: String = ""
+
+    var body: some View {
+    NavigationView {
         ZStack {
             Color(red: 0.06, green: 0.06, blue: 0.06)
                 .ignoresSafeArea()
             
             VStack {
-                Text("Sign Up")
-                    .padding(.vertical)
-                    .foregroundColor(.green)
-                    .font(.system(size: 40, weight: .heavy, design: .default))
                 
-                TextField("First Name", text: $firstName)
-                    .placeholder(when: firstName.isEmpty) {
-                        Text("First Name").foregroundColor(Color(.lightGray))
+                Group{
+                    Spacer()
+                    Image("LongLogo")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 380.0)
+                        .cornerRadius(30)
+                    
+                    Spacer()
+                }
+                
+                TextField("Username or email", text: $usernameOrEmail)
+                    .placeholder(when: usernameOrEmail.isEmpty) {
+                        Text("Username or email").foregroundColor(Color(.lightGray))
                     }
                     .textFieldStyle(PlainTextFieldStyle())
                     .multilineTextAlignment(.leading)
@@ -73,61 +114,10 @@ struct SignUpView: View {
                     .background(border)
                     .padding(.leading)
                     .padding(.trailing)
+                    .scaledToFit()
                     .padding(4)
                     .autocapitalization(.none)
-                    .disableAutocorrection(true)
-                
-                TextField("Last Name", text: $lastName)
-                    .placeholder(when: lastName.isEmpty) {
-                        Text("Last Name").foregroundColor(Color(.lightGray))
-                    }
-                    .textFieldStyle(PlainTextFieldStyle())
-                    .multilineTextAlignment(.leading)
-                    .font(.system(size: 20, weight: .medium, design: .default))
-                    .padding(.vertical, 12)
-                    .padding(.horizontal, 16)
-                    .foregroundColor(.white)
-                    .background(border)
-                    .padding(.leading)
-                    .padding(.trailing)
-                    .padding(4)
-                    .autocapitalization(.none)
-                    .disableAutocorrection(true)
-                
-                TextField("Username", text: $username)
-                    .placeholder(when: username.isEmpty) {
-                        Text("Username").foregroundColor(Color(.lightGray))
-                    }
-                    .textFieldStyle(PlainTextFieldStyle())
-                    .multilineTextAlignment(.leading)
-                    .font(.system(size: 20, weight: .medium, design: .default))
-                    .padding(.vertical, 12)
-                    .padding(.horizontal, 16)
-                    .foregroundColor(.white)
-                    .background(border)
-                    .padding(.leading)
-                    .padding(.trailing)
-                    .padding(4)
-                    .autocapitalization(.none)
-                    .disableAutocorrection(true)
-                
-                TextField("Email", text: $email)
-                    .placeholder(when: email.isEmpty) {
-                        Text("Email").foregroundColor(Color(.lightGray))
-                    }
-                    .textFieldStyle(PlainTextFieldStyle())
-                    .multilineTextAlignment(.leading)
-                    .font(.system(size: 20, weight: .medium, design: .default))
-                    .padding(.vertical, 12)
-                    .padding(.horizontal, 16)
-                    .foregroundColor(.white)
-                    .background(border)
-                    .padding(.leading)
-                    .padding(.trailing)
-                    .padding(4)
-                    .autocapitalization(.none)
-                    .disableAutocorrection(true)
-                
+                 
                 HybridTextField(text: $password, titleKey: "Password")
                     .placeholder(when: password.isEmpty) {
                         Text("Password").foregroundColor(Color(.lightGray))
@@ -142,183 +132,137 @@ struct SignUpView: View {
                     .padding(.leading)
                     .padding(.trailing)
                     .padding(4)
-                    .autocapitalization(.none)
-                    .disableAutocorrection(true)
+                    .scaledToFit()
                 
                 
-                HybridTextField(text: $confirmPassword, titleKey: "Confirm Password")
-                    .placeholder(when: confirmPassword.isEmpty) {
-                        Text("Confirm Password").foregroundColor(Color(.lightGray))
+                if isLoginInfoCorrect {
+                    
+                    NavigationLink(destination: mainScreen()){
+                        Text("Login")
+                            .font(.system(size: 20, weight: .bold, design: .default))
+                            .foregroundColor(.black)
+                            .frame(width: 220, height: 60)
+                            .background(Color.green)
+                            .cornerRadius(15)
+                            .padding(.top, 20)
                     }
-                    .textFieldStyle(PlainTextFieldStyle())
-                    .multilineTextAlignment(.leading)
-                    .font(.system(size: 20, weight: .medium, design: .default))
-                    .padding(.vertical, 12)
-                    .padding(.horizontal, 16)
-                    .foregroundColor(.white)
-                    .background(border)
-                    .padding(.leading)
-                    .padding(.trailing)
-                    .padding(4)
-                    .autocapitalization(.none)
-                    .disableAutocorrection(true)
-                
-                Button(action: {
-                    if(password == confirmPassword) {
-                        print("Success")
-                    }
-                    else {
-                        print("Fail")
-                    }
-                }) {
-                    Text("Submit")
                 }
-                    .font(.system(size: 20, weight: .bold, design: .default))
-                    .foregroundColor(.black)
-                    .frame(width: 220, height: 60)
-                    .background(Color.green)
-                    .cornerRadius(15)
-                    .padding(.top, 20)
+                else{
+                    Button(action: {
+                        
+                        messageToUser = "Incorrect email/username or password"
+                        
+                    }, label: {
+                        Text("Login")
+                            .font(.system(size: 20, weight: .bold, design: .default))
+                            .foregroundColor(.black)
+                            .frame(width: 220, height: 60)
+                            .background(Color.green)
+                            .cornerRadius(15)
+                            .padding(.top, 20)
+                        
+                    })
+                }
+                
+                Group{
+                    Spacer()
+                    
+                    Text(messageToUser)
+                        .font(.system(size: 20, weight: .regular, design: .default))
+                        .background(Color.black)
+                        .foregroundColor(Color(.red))
+                }
                 
                 Spacer()
                 Spacer()
+                Spacer()
+                
+                
+                HStack {
+                    Text("Don't have an account?")
+                        .font(.system(size: 20, weight: .regular, design: .default))
+                        .foregroundColor(Color(.lightGray))
+                    
+                        NavigationLink(destination: SignUpView()){
+                            Text("SIGN UP")
+                                .font(.system(size: 20, weight: .bold, design: .default))
+                                .foregroundColor(.green)
+                        }
+                    
+                    
+                }
+                
+                
             }
+              
         }
     }
+        
     
-    var border: some View {
-        RoundedRectangle(cornerRadius: 16)
-          .strokeBorder(
-            LinearGradient(
-              gradient: .init(
-                colors: [
-                    Color(red: 0.08, green: 0.64, blue: 0.15)
-                ]
-              ),
-              startPoint: .topLeading,
-              endPoint: .bottomTrailing
-            )
-          )
-      }
-}
+        
+        
 
-struct LoginView: View {
-    
-    //Variables to store input field data
-    @State private var usernameOrEmail: String = ""
-    @State private var password: String = ""
-    @State private var isLoginInfoCorrect: Bool = true
-    @State private var messageToUser: String = ""
-
-    var body: some View {
+        /*
+        //Navigation view for the new user page
         NavigationView {
-            ZStack {
-                Color(red: 0.06, green: 0.06, blue: 0.06)
-                    .ignoresSafeArea()
+            
+            //Geometry Reader to bind elements to certain margins of parent view
+            GeometryReader { metrics in
                 
-                VStack {
+                ZStack {
+                    Color.black
+                        .ignoresSafeArea()
                     
-                    Group{
-                        Spacer()
-                        Image("LongLogo")
+                    //Vstack containing all views
+                    VStack (){
+                        
+                        Color.black
+                            .ignoresSafeArea()
+                        
+                        Image("Logo")
                             .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 380.0)
-                            .cornerRadius(30)
+                            .frame(width: 350, height: 350)
+                            .cornerRadius(50)
                         
-                        Spacer()
-                    }
-                    
-                    TextField("Username or email", text: $usernameOrEmail)
-                        .placeholder(when: usernameOrEmail.isEmpty) {
-                            Text("Username or email").foregroundColor(Color(.lightGray))
-                        }
-                        .textFieldStyle(PlainTextFieldStyle())
-                        .multilineTextAlignment(.leading)
-                        .font(.system(size: 20, weight: .medium, design: .default))
-                        .padding(.vertical, 12)
-                        .padding(.horizontal, 16)
-                        .foregroundColor(.white)
-                        .background(border)
-                        .padding(.leading)
-                        .padding(.trailing)
-                        .scaledToFit()
-                        .padding(4)
-                        .autocapitalization(.none)
-                     
-                    HybridTextField(text: $password, titleKey: "Password")
-                        .placeholder(when: password.isEmpty) {
-                            Text("Password").foregroundColor(Color(.lightGray))
-                        }
-                        .textFieldStyle(PlainTextFieldStyle())
-                        .multilineTextAlignment(.leading)
-                        .font(.system(size: 20, weight: .medium, design: .default))
-                        .padding(.vertical, 12)
-                        .padding(.horizontal, 16)
-                        .foregroundColor(.white)
-                        .background(border)
-                        .padding(.leading)
-                        .padding(.trailing)
-                        .padding(4)
-                        .scaledToFit()
-                    
-                    if isLoginInfoCorrect {
+                        //Title
+                        Text("Login:")
+                            .padding(20)
+                            .font(.system(.title, design: .monospaced))
                         
-                        NavigationLink(destination: mainScreen()){
+                        //Username field
+                        TextField("Username", text: $username)
+                            .textFieldStyle(.roundedBorder)
+                            .padding(5)
+                            .frame(width: metrics.size.width*0.85,alignment: .center)
+                        
+                        //Password field
+                        SecureField("Password", text: $password)
+                            .textFieldStyle(.roundedBorder)
+                            .padding(5)
+                            .frame(width: metrics.size.width*0.85,alignment: .center)
+                        
+                        //Login button (currently holds no purpose)
+                        NavigationLink(destination: mainScreen()) {
                             Text("Login")
-                                .font(.system(size: 20, weight: .bold, design: .default))
-                                .foregroundColor(.black)
-                                .frame(width: 220, height: 60)
-                                .background(Color.green)
-                                .cornerRadius(15)
-                                .padding(.top, 20)
+                            .frame(width: metrics.size.width*0.7, height:metrics.size.height*0.01)
                         }
-                    }
-                    else{
-                        Button(action: {
-                            
-                            messageToUser = "Incorrect email/username or password"
-                            
-                        }, label: {
-                            Text("Login")
-                                .font(.system(size: 20, weight: .bold, design: .default))
-                                .foregroundColor(.black)
-                                .frame(width: 220, height: 60)
-                                .background(Color.green)
-                                .cornerRadius(15)
-                                .padding(.top, 20)
-                            
-                        })
-                    }
-                    
-                    Group{
-                        Spacer()
-                        
-                        Text(messageToUser)
-                            .font(.system(size: 20, weight: .regular, design: .default))
-                            .background(Color.black)
-                            .foregroundColor(Color(.red))
-                    }
-                    
-                    Spacer()
-                    Spacer()
-                    Spacer()
-                    
-                    HStack {
-                        Text("Don't have an account?")
-                            .font(.system(size: 20, weight: .regular, design: .default))
-                            .foregroundColor(Color(.lightGray))
-                        
-                            NavigationLink(destination: SignUpView()){
-                                Text("SIGN UP")
-                                    .font(.system(size: 20, weight: .bold, design: .default))
-                                    .foregroundColor(.green)
-                            }
+                        .buttonStyle(RoundedButtonStyle())
+                        //New user creation button
+                        NavigationLink(destination: CreateUserScreen()) {
+                            Text("New User")
+                            .frame(width: metrics.size.width*0.7, height:metrics.size.height*0.01)
+                        }
+                        .buttonStyle(RoundedButtonStyle())
                     }
                 }
-                  
+                
+                
+
             }
+            .frame(width: 350, height: 450, alignment: .center)
         }
+        .frame(alignment:.center)
+        */
     }
     
     var border: some View {
@@ -342,7 +286,6 @@ struct LoginView: View {
         print("Password: \(password)")
     }
 }
- 
 
 //Button styling method
 struct RoundedButtonStyle: ButtonStyle {
@@ -462,7 +405,6 @@ struct BarChart: View {
 //Main
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        SignUpView()
-        //LoginView()
+        LoginView()
     }
 }
