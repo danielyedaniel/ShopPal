@@ -1,6 +1,7 @@
 import SwiftUI
 import Charts
 
+//Kevin password field
 struct HybridTextField: View {
     @Binding var text: String
     @State var isSecure: Bool = true
@@ -29,6 +30,7 @@ struct HybridTextField: View {
     }
 }
 
+//Not sure
 extension View {
     func placeholder<Content: View>(
         when shouldShow: Bool,
@@ -42,6 +44,7 @@ extension View {
     }
 }
 
+//Sign up screen
 struct SignUpView: View {
     @State private var firstName: String = ""
     @State private var lastName: String = ""
@@ -183,8 +186,9 @@ struct SignUpView: View {
             )
           )
       }
-}
+}//End of Sign up screen
 
+//Login screen
 struct LoginView: View {
     
     //Variables to store input field data
@@ -192,6 +196,7 @@ struct LoginView: View {
     @State private var password: String = ""
     @State private var isLoginInfoCorrect: Bool = true
     @State private var messageToUser: String = ""
+    @State private var shouldNav = false
 
     var body: some View {
         NavigationView {
@@ -245,9 +250,30 @@ struct LoginView: View {
                         .padding(4)
                         .scaledToFit()
                     
-                    if isLoginInfoCorrect {
-                        
-                        NavigationLink(destination: mainScreen()){
+                    //Login button
+                    VStack{
+                        Button(action:{
+                            
+                            //Check the username or password in database
+                            //This is temp for testing
+                            if usernameOrEmail == "John" && password == "Turco" {
+                                isLoginInfoCorrect = true
+                            }
+                            else{
+                                isLoginInfoCorrect = false
+                            }
+                            
+                            
+                            //Navigate to new page if correct
+                            if isLoginInfoCorrect {
+                                self.shouldNav = true
+                            }
+                            else { //Output message to user if incorrect
+                                messageToUser = "Incorrect email/username or password"
+                            }
+                            
+                            
+                        }){
                             Text("Login")
                                 .font(.system(size: 20, weight: .bold, design: .default))
                                 .foregroundColor(.black)
@@ -256,22 +282,11 @@ struct LoginView: View {
                                 .cornerRadius(15)
                                 .padding(.top, 20)
                         }
-                    }
-                    else{
-                        Button(action: {
-                            
-                            messageToUser = "Incorrect email/username or password"
-                            
-                        }, label: {
-                            Text("Login")
-                                .font(.system(size: 20, weight: .bold, design: .default))
-                                .foregroundColor(.black)
-                                .frame(width: 220, height: 60)
-                                .background(Color.green)
-                                .cornerRadius(15)
-                                .padding(.top, 20)
-                            
-                        })
+                        
+                        NavigationLink(destination: mainScreen(), isActive: $shouldNav){
+                            Spacer()
+                        }
+                        
                     }
                     
                     Group{
@@ -324,7 +339,7 @@ struct LoginView: View {
         print("Username: \(usernameOrEmail)")
         print("Password: \(password)")
     }
-}
+}//End of Login screen
  
 
 //Button styling method
@@ -340,7 +355,7 @@ struct RoundedButtonStyle: ButtonStyle {
 }
 
 
-//This will be the main screen
+//Main screen
 struct mainScreen: View {
     var body: some View {
         TabView {
@@ -362,9 +377,9 @@ struct mainScreen: View {
         }
         .navigationBarBackButtonHidden(true)
     }
-}
+}//End of main screen
 
-//Temp
+//Home Screen
 struct HomeView: View {
     let groceryList = ["Apples", "Bananas", "Oranges", "Strawberries"]
 
@@ -385,9 +400,9 @@ struct HomeView: View {
             }
         }
     }
-}
+}//End of home screen
 
-//Temp
+//Settings
 struct SettingsView: View {
     @State private var evan = true
     var body: some View {
@@ -396,7 +411,7 @@ struct SettingsView: View {
     }
 }
 
-//Temp
+//Graph
 struct ChartView: View {
     var body: some View {
         VStack {
@@ -411,20 +426,20 @@ struct ChartView: View {
     }
 }
 
-//Temp
+//Graph helper
 struct ToyShape: Identifiable {
     var type: String
     var count: Double
     var id = UUID()
 }
 
-//Temp
+//Graph Helper
 var data: [ToyShape] = [
     .init(type: "Cube", count: 5),
     .init(type: "Sphere", count: 4),
     .init(type: "Pyramid", count: 4)
 ]
-//Temp
+//Graph Helper
 struct BarChart: View {
     var body: some View {
         Chart {
@@ -444,7 +459,7 @@ struct BarChart: View {
     }
 }
 
-//Main
+//Main, use to call first screen
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         LoginView()
