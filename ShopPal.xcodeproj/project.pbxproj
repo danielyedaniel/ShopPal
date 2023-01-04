@@ -45,7 +45,7 @@
 		9643EB1F295949CD00C46A96 /* ShopPalUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShopPalUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9643EB23295949CD00C46A96 /* ShopPalUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopPalUITests.swift; sourceTree = "<group>"; };
 		9643EB25295949CD00C46A96 /* ShopPalUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopPalUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		967A82E7295CE8F700E5FD82 /* ShopPal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = ShopPal; sourceTree = "<group>"; };
+		967A82E7295CE8F700E5FD82 /* ShopPal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = ShopPal; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -425,6 +425,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ShopPal/Preview Content\"";
+				DEVELOPMENT_TEAM = RZUWB4BNJL;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
@@ -442,7 +443,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "JDE-STUDIOS.ShopPal";
+				PRODUCT_BUNDLE_IDENTIFIER = "JDE-STUDIOS.ShopPalJDE";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
@@ -461,6 +462,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ShopPal/Preview Content\"";
+				DEVELOPMENT_TEAM = RZUWB4BNJL;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
@@ -478,7 +480,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "JDE-STUDIOS.ShopPal";
+				PRODUCT_BUNDLE_IDENTIFIER = "JDE-STUDIOS.ShopPalJDE";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";

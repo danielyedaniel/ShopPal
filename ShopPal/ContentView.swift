@@ -1,5 +1,6 @@
 import SwiftUI
 import Charts
+import Foundation
 
 //Kevin password field
 struct HybridTextField: View {
@@ -19,7 +20,7 @@ struct HybridTextField: View {
                 .textFieldStyle(PlainTextFieldStyle())
                 .multilineTextAlignment(.leading)
                 .font(.system(size: 20, weight: .medium, design: .default))
-                .autocapitalization(.none)
+//                .autocapitalization(.none)
             Button(action: {
                 isSecure.toggle()
             }, label: {
@@ -77,7 +78,7 @@ struct SignUpView: View {
                     .padding(.leading)
                     .padding(.trailing)
                     .padding(4)
-                    .autocapitalization(.none)
+//                    .autocapitalization(.none)
                     .disableAutocorrection(true)
                 
                 TextField("Last Name", text: $lastName)
@@ -94,7 +95,7 @@ struct SignUpView: View {
                     .padding(.leading)
                     .padding(.trailing)
                     .padding(4)
-                    .autocapitalization(.none)
+//                    .autocapitalization(.none)
                     .disableAutocorrection(true)
                 
                 TextField("Email", text: $email)
@@ -111,7 +112,7 @@ struct SignUpView: View {
                     .padding(.leading)
                     .padding(.trailing)
                     .padding(4)
-                    .autocapitalization(.none)
+//                    .autocapitalization(.none)
                     .disableAutocorrection(true)
                 
                 HybridTextField(text: $password, titleKey: "Password")
@@ -128,7 +129,7 @@ struct SignUpView: View {
                     .padding(.leading)
                     .padding(.trailing)
                     .padding(4)
-                    .autocapitalization(.none)
+//                    .autocapitalization(.none)
                     .disableAutocorrection(true)
                 
                 
@@ -146,7 +147,7 @@ struct SignUpView: View {
                     .padding(.leading)
                     .padding(.trailing)
                     .padding(4)
-                    .autocapitalization(.none)
+//                    .autocapitalization(.none)
                     .disableAutocorrection(true)
                 
                 Button(action: {
@@ -232,7 +233,7 @@ struct LoginView: View {
                         .padding(.trailing)
                         .scaledToFit()
                         .padding(4)
-                        .autocapitalization(.none)
+//                        .autocapitalization(.none)
                      
                     HybridTextField(text: $password, titleKey: "Password")
                         .placeholder(when: password.isEmpty) {
@@ -254,14 +255,29 @@ struct LoginView: View {
                     VStack{
                         Button(action:{
                             
+
+                            ShopPal.login(email: usernameOrEmail, password: password) { result in
+                                switch result {
+                                case .success(let json):
+                                    // Use the json object here
+                                    print(json)
+                                    isLoginInfoCorrect = true
+                                case .failure(let error):
+                                    // Handle the error here
+                                    let userInfo = (error as NSError).userInfo
+                                    print(userInfo)
+                                    isLoginInfoCorrect = false
+                                }
+                            }
+                            
                             //Check the username or password in database
                             //This is temp for testing
-                            if usernameOrEmail == "John" && password == "Turco" {
-                                isLoginInfoCorrect = true
-                            }
-                            else{
-                                isLoginInfoCorrect = false
-                            }
+//                            if usernameOrEmail == "John" && password == "Turco" {
+//                                isLoginInfoCorrect = true
+//                            }
+//                            else{
+//                                isLoginInfoCorrect = false
+//                            }
                             
                             
                             //Navigate to new page if correct
@@ -269,7 +285,7 @@ struct LoginView: View {
                                 self.shouldNav = true
                             }
                             else { //Output message to user if incorrect
-                                messageToUser = "Incorrect email/username or password"
+                                messageToUser = "Incorrect email or password"
                             }
                             
                             
@@ -464,4 +480,41 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         LoginView()
     }
+}
+
+
+
+func login(email: String, password: String, completion: @escaping (Result<[String: Any], Error>) -> Void) {
+    let url = URL(string: "https://www.wangevan.com/user/login")!
+    var request = URLRequest(url: url)
+    request.httpMethod = "POST"
+    request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+    let body: [String: Any] = ["email": email, "password": password]
+    request.httpBody = try! JSONSerialization.data(withJSONObject: body)
+    
+    let task = URLSession.shared.dataTask(with: request) { data, response, error in
+        if let error = error {
+            completion(.failure(error))
+            return
+        }
+        
+        guard let data = data else {
+            let error = NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "Data is nil"])
+            completion(.failure(error))
+            return
+        }
+        
+        let httpResponse = response as! HTTPURLResponse
+        if (httpResponse.statusCode == 400) {
+            let str = String(decoding: data, as: UTF8.self)
+            let error = NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: str])
+            completion(.failure(error))
+            return
+        }
+        
+        let json = try! JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
+        completion(.success(json))
+    }
+    
+    task.resume()
 }
