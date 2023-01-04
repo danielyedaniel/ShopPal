@@ -1,11 +1,12 @@
 const express = require("express");
 const ddbClient = require("../aws/dynamo");
+require("dotenv").config();
 
 const router = express.Router();
 
 router.post("/get", async (req, res) => {
     const params = {
-        TableName: "ShopPal",
+        TableName: process.env.AWS_DyanmoDB_Table,
         KeyConditionExpression: "email = :email AND receiptDate < :profile",
         ExpressionAttributeValues: {
             ":email": req.body.email,
