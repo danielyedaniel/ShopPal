@@ -464,14 +464,17 @@ struct SettingsView: View {
 
 //Graph
 struct ChartView: View {
+    let slices  = [1,2,3,4,5,6,7]
+    let colors: [UIColor] = [.red, .orange, .yellow, .green, .blue, .cyan, .purple]
+
     var body: some View {
         VStack {
-            BarChart()
-                .frame(width: 300, height: 300)
-            List {
-                ForEach(0..<5) { index in
-                    Text("Item #(index + 1)")
-                }
+            Pie(slices: slices.enumerated().map { (index, slice) in
+                return (Double(slice), Color(colors[index]))
+            })
+            
+            List(slices, id: \.self) { slice in
+                Text("\(slice)")
             }
         }
     }
@@ -491,22 +494,32 @@ var data: [ToyShape] = [
     .init(type: "Pyramid", count: 4)
 ]
 //Graph Helper
-struct BarChart: View {
+struct Pie: View {
+
+    @State var slices: [(Double, Color)]
+
     var body: some View {
-        Chart {
-            BarMark(
-                x: .value("Shape Type", data[0].type),
-                y: .value("Total Count", data[0].count)
-            )
-            BarMark(
-                 x: .value("Shape Type", data[1].type),
-                 y: .value("Total Count", data[1].count)
-            )
-            BarMark(
-                 x: .value("Shape Type", data[2].type),
-                 y: .value("Total Count", data[2].count)
-            )
+        Canvas { context, size in
+            let total = slices.reduce(0) { $0 + $1.0 }
+            context.translateBy(x: size.width * 0.5, y: size.height * 0.5)
+            var pieContext = context
+            pieContext.rotate(by: .degrees(-90))
+            let radius = min(size.width, size.height) * 0.48
+            var startAngle = Angle.zero
+            for (value, color) in slices {
+                let angle = Angle(degrees: 360 * (value / total))
+                let endAngle = startAngle + angle
+                let path = Path { p in
+                    p.move(to: .zero)
+                    p.addArc(center: .zero, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: false)
+                    p.closeSubpath()
+                }
+                pieContext.fill(path, with: .color(color))
+
+                startAngle = endAngle
+            }
         }
+        .aspectRatio(1, contentMode: .fit)
     }
 }
 
