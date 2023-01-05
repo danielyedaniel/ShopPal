@@ -269,8 +269,6 @@ struct LoginView: View {
                     //Login button
                     VStack{
                         Button(action:{
-                            
-
                             let responseJson = ShopPal.login(email: usernameOrEmail.lowercased(), password: password)
                             
                             if responseJson["status"] as! Int == 200 {
@@ -278,16 +276,6 @@ struct LoginView: View {
                             } else {
                                 isLoginInfoCorrect = false
                             }
-                            
-                            //Check the username or password in database
-                            //This is temp for testing
-//                            if usernameOrEmail == "John" && password == "Turco" {
-//                                isLoginInfoCorrect = true
-//                            }
-//                            else{
-//                                isLoginInfoCorrect = false
-//                            }
-                            
                             
                             //Navigate to new page if correct
                             if isLoginInfoCorrect {
@@ -311,7 +299,6 @@ struct LoginView: View {
                         NavigationLink(destination: mainScreen(), isActive: $shouldNav){
                             Spacer()
                         }
-                        
                     }
                     
                     Group{
@@ -378,7 +365,6 @@ struct RoundedButtonStyle: ButtonStyle {
             .font(.headline)
     }
 }
-
 
 //Main screen
 struct mainScreen: View {
