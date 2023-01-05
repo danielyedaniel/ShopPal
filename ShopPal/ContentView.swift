@@ -47,12 +47,15 @@ extension View {
 
 //Sign up screen
 struct SignUpView: View {
+    @Environment(\.presentationMode) var presentationMode
     @State private var firstName: String = ""
     @State private var lastName: String = ""
-    @State private var username: String = ""
     @State private var email: String = ""
     @State private var password: String = ""
     @State private var confirmPassword: String = ""
+    @State private var showError = false
+
+    
     var body: some View {
         ZStack {
             Color(red: 0.06, green: 0.06, blue: 0.06)
@@ -152,10 +155,17 @@ struct SignUpView: View {
                 
                 Button(action: {
                     if(password == confirmPassword) {
-                        print("Success")
+                        let responseJson = ShopPal.signUp(firstName: firstName, lastName: lastName, email: email.lowercased(), password: password)
+                        if responseJson["status"] as! Int == 200 {
+                            self.presentationMode.wrappedValue.dismiss()
+                        } else {
+                            withAnimation {
+                                self.showError = true
+                            }
+                        }
                     }
                     else {
-                        print("Fail")
+                        self.showError = true
                     }
                 }) {
                     Text("Submit")
@@ -166,7 +176,9 @@ struct SignUpView: View {
                     .background(Color.green)
                     .cornerRadius(15)
                     .padding(.top, 20)
-                
+                    .alert(isPresented: $showError) {
+                        Alert(title: Text("Error"), message: Text("Invalid sign up information"), dismissButton: .default(Text("Ok")))
+                    }
                 Spacer()
                 Spacer()
             }
@@ -195,7 +207,7 @@ struct LoginView: View {
     //Variables to store input field data
     @State private var usernameOrEmail: String = ""
     @State private var password: String = ""
-    @State private var isLoginInfoCorrect: Bool = true
+    @State private var isLoginInfoCorrect: Bool = false
     @State private var messageToUser: String = ""
     @State private var shouldNav = false
 
@@ -544,7 +556,6 @@ func login(email: String, password: String) -> [String: Any] {
         if let error = error {
             print(error)
         } else {
-            print(response)
             let httpResponse = response as! HTTPURLResponse
             if (httpResponse.statusCode == 400) {
                 let str = String(decoding: data!, as: UTF8.self)
@@ -552,6 +563,39 @@ func login(email: String, password: String) -> [String: Any] {
                 responseJson = ["status": 400, "error": str]
             } else {
                 responseJson = try! JSONSerialization.jsonObject(with: data!, options: []) as! [String: Any]
+                responseJson["status"] = httpResponse.statusCode
+            }
+        }
+        semaphore.signal()
+    }.resume()
+    semaphore.wait()
+    return responseJson
+}
+
+//Sign up code
+func signUp(firstName: String, lastName: String, email: String, password: String) -> [String: Any] {
+    let url = URL(string: "https://www.wangevan.com/user/signup")!
+    var request = URLRequest(url: url)
+    request.httpMethod = "POST"
+    request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+    
+    let body: [String: Any] = ["firstName": firstName, "lastName":lastName , "email": email, "password": password]
+    let jsonData = try! JSONSerialization.data(withJSONObject: body)
+    request.httpBody = jsonData
+    
+    let semaphore = DispatchSemaphore(value: 0)
+    var responseJson: [String: Any] = [:]
+    URLSession.shared.dataTask(with: request) { (data, response, error) in
+        if let error = error {
+            print(error)
+        } else {
+            let httpResponse = response as! HTTPURLResponse
+            if (httpResponse.statusCode == 400) {
+                let str = String(decoding: data!, as: UTF8.self)
+                print(str)
+                responseJson = ["status": 400, "error": str]
+            } else {
+//                responseJson = try! JSONSerialization.jsonObject(with: data!, options: []) as! [String: Any]
                 responseJson["status"] = httpResponse.statusCode
             }
         }
