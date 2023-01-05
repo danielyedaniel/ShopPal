@@ -256,18 +256,12 @@ struct LoginView: View {
                         Button(action:{
                             
 
-                            ShopPal.login(email: usernameOrEmail, password: password) { result in
-                                switch result {
-                                case .success(let json):
-                                    // Use the json object here
-                                    print(json)
-                                    isLoginInfoCorrect = true
-                                case .failure(let error):
-                                    // Handle the error here
-                                    let userInfo = (error as NSError).userInfo
-                                    print(userInfo)
-                                    isLoginInfoCorrect = false
-                                }
+                            let responseJson = ShopPal.login(email: usernameOrEmail, password: password)
+                            
+                            if responseJson["status"] as! Int == 200 {
+                                isLoginInfoCorrect = true
+                            } else {
+                                isLoginInfoCorrect = false
                             }
                             
                             //Check the username or password in database
@@ -531,38 +525,34 @@ struct ContentView_Previews: PreviewProvider {
 }
 
 
-
-func login(email: String, password: String, completion: @escaping (Result<[String: Any], Error>) -> Void) {
+func login(email: String, password: String) -> [String: Any] {
     let url = URL(string: "https://www.wangevan.com/user/login")!
     var request = URLRequest(url: url)
     request.httpMethod = "POST"
-    request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+    request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+    
     let body: [String: Any] = ["email": email, "password": password]
-    request.httpBody = try! JSONSerialization.data(withJSONObject: body)
+    let jsonData = try! JSONSerialization.data(withJSONObject: body)
+    request.httpBody = jsonData
     
-    let task = URLSession.shared.dataTask(with: request) { data, response, error in
+    let semaphore = DispatchSemaphore(value: 0)
+    var responseJson: [String: Any] = [:]
+    URLSession.shared.dataTask(with: request) { (data, response, error) in
         if let error = error {
-            completion(.failure(error))
-            return
+            print(error)
+        } else {
+            let httpResponse = response as! HTTPURLResponse
+            if (httpResponse.statusCode == 400) {
+                let str = String(decoding: data!, as: UTF8.self)
+                print(str)
+                responseJson = ["status": 400, "error": str]
+            } else {
+                responseJson = try! JSONSerialization.jsonObject(with: data!, options: []) as! [String: Any]
+                responseJson["status"] = httpResponse.statusCode
+            }
         }
-        
-        guard let data = data else {
-            let error = NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "Data is nil"])
-            completion(.failure(error))
-            return
-        }
-        
-        let httpResponse = response as! HTTPURLResponse
-        if (httpResponse.statusCode == 400) {
-            let str = String(decoding: data, as: UTF8.self)
-            let error = NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: str])
-            completion(.failure(error))
-            return
-        }
-        
-        let json = try! JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
-        completion(.success(json))
-    }
-    
-    task.resume()
+        semaphore.signal()
+    }.resume()
+    semaphore.wait()
+    return responseJson
 }
