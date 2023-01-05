@@ -233,6 +233,9 @@ struct LoginView: View {
                         .padding(.trailing)
                         .scaledToFit()
                         .padding(4)
+                        .textInputAutocapitalization(.never)
+                        .disableAutocorrection(true)
+
 //                        .autocapitalization(.none)
                      
                     HybridTextField(text: $password, titleKey: "Password")
