@@ -256,7 +256,7 @@ struct LoginView: View {
                         Button(action:{
                             
 
-                            let responseJson = ShopPal.login(email: usernameOrEmail, password: password)
+                            let responseJson = ShopPal.login(email: usernameOrEmail.lowercased(), password: password)
                             
                             if responseJson["status"] as! Int == 200 {
                                 isLoginInfoCorrect = true
@@ -541,6 +541,7 @@ func login(email: String, password: String) -> [String: Any] {
         if let error = error {
             print(error)
         } else {
+            print(response)
             let httpResponse = response as! HTTPURLResponse
             if (httpResponse.statusCode == 400) {
                 let str = String(decoding: data!, as: UTF8.self)
