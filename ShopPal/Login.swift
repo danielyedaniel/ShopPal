@@ -68,7 +68,6 @@ struct LoginView: View {
                         .padding(.leading)
                         .padding(.trailing)
                         .padding(4)
-                        .scaledToFit()
                     
                     //Login button
                     VStack{

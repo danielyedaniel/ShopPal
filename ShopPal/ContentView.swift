@@ -20,7 +20,6 @@ struct HybridTextField: View {
                 .textFieldStyle(PlainTextFieldStyle())
                 .multilineTextAlignment(.leading)
                 .font(.system(size: 20, weight: .medium, design: .default))
-//                .autocapitalization(.none)
             Button(action: {
                 isSecure.toggle()
             }, label: {

@@ -37,7 +37,7 @@ struct mainScreen: View {
             CameraView()
                 .tabItem{
                     Image(systemName: "camera")
-                    Text("Receipt")
+                    Text("Scan")
                 }
             SettingsView()
                 .tabItem {
