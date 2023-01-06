@@ -31,7 +31,7 @@ router.post("/signup", async (req, res) => {
     if (error) return res.status(400).json(error.details);
 
     const emailInUse = (await ddbClient.get({TableName: process.env.AWS_DyanmoDB_Table, Key: { email: user.email, receiptDate: "profile" }}).promise())
-    if (Object.keys(emailInUse).length == 1) return res.json("Email already exists.")
+    if (Object.keys(emailInUse).length == 1) return res.status(400).json("Email already exists.")
 
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(user.password, salt);
