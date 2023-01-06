@@ -9,62 +9,72 @@ import Foundation
 import SwiftUI
 import AVFoundation
 
-struct CameraView: View {
-    @State private var isShowingImagePicker = false
+struct CameraView: UIViewControllerRepresentable {
     @State private var image: Image?
 
-    var body: some View {
-        VStack {
-            image?
-                .resizable()
-                .scaledToFit()
-            Button(action: {
-                self.isShowingImagePicker = true
-            }) {
-                Text("Take photo")
-            }
+    func makeUIViewController(context: Context) -> AVCaptureViewController {
+        let captureSession = AVCaptureSession()
+        captureSession.sessionPreset = .photo
+
+        let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+
+        let cameraOutput = AVCapturePhotoOutput()
+
+        let device = AVCaptureDevice.default(for: .video)
+        if let input = try? AVCaptureDeviceInput(device: device!) {
+            captureSession.addInput(input)
+            captureSession.addOutput(cameraOutput)
         }
-        .sheet(isPresented: $isShowingImagePicker) {
-            ImagePicker(image: self.$image)
+
+        let captureViewController = AVCaptureViewController()
+        captureViewController.previewLayer = previewLayer
+
+        return captureViewController
+    }
+
+    func updateUIViewController(_ uiViewController: AVCaptureViewController, context: Context) {
+        uiViewController.takePhoto = {
+            let settings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])
+            uiViewController.photoOutput.capturePhoto(with: settings, delegate: uiViewController)
+        }
+        uiViewController.photoCaptureCompletionBlock = { imageData, error in
+            if let imageData = imageData {
+                self.image = Image(uiImage: UIImage(data: imageData)!)
+            }
         }
     }
 }
 
-struct ImagePicker: UIViewControllerRepresentable {
-    @Binding var image: Image?
-    @Environment(\.presentationMode) var presentationMode
+class AVCaptureViewController: UIViewController, AVCapturePhotoCaptureDelegate {
+    var previewLayer: AVCaptureVideoPreviewLayer!
+    var photoOutput: AVCapturePhotoOutput!
+    var takePhoto: (() -> Void)?
+    var photoCaptureCompletionBlock: ((Data?, Error?) -> Void)?
 
-    class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
-        @Binding var image: Image?
-        var parent: ImagePicker
+    override func viewDidLoad() {
+        super.viewDidLoad()
 
-        init(image: Binding<Image?>, parent: ImagePicker) {
-            _image = image
-            self.parent = parent
+        previewLayer.frame = view.layer.bounds
+        view.layer.addSublayer(previewLayer)
+
+        let takePhotoButton = UIButton(frame: CGRect(x: 100, y: 100, width: 120, height: 50))
+        takePhotoButton.setTitle("Take photo", for: .normal)
+        takePhotoButton.addTarget(self, action: #selector(takePhoto(_:)), for: .touchUpInside)
+        view.addSubview(takePhotoButton)
+    }
+
+    @objc func takePhoto(_ sender: Any) {
+        takePhoto?()
+    }
+
+    func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
+        if let error = error {
+            photoCaptureCompletionBlock?(nil, error)
+        } else {
+            photoCaptureCompletionBlock?(photo.fileDataRepresentation(), nil)
         }
-
-        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-            if let uiImage = info[.originalImage] as? UIImage {
-                image = Image(uiImage: uiImage)
-            }
-
-            parent.presentationMode.wrappedValue.dismiss()
-        }
-    }
-
-    func makeCoordinator() -> Coordinator {
-        return Coordinator(image: $image, parent: self)
-    }
-
-    func makeUIViewController(context: UIViewControllerRepresentableContext<ImagePicker>) -> UIImagePickerController {
-        let picker = UIImagePickerController()
-        picker.delegate = context.coordinator
-        return picker
-    }
-
-    func updateUIViewController(_ uiViewController: UIImagePickerController, context: UIViewControllerRepresentableContext<ImagePicker>) {
-
     }
 }
+
 
 
