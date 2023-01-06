@@ -17,6 +17,7 @@ struct SignUpView: View {
     @State private var password: String = ""
     @State private var confirmPassword: String = ""
     @State private var showError = false
+    @State private var creationSuccess = false
 
     
     var body: some View {
@@ -121,6 +122,7 @@ struct SignUpView: View {
                         let responseJson = ShopPal.signUp(firstName: firstName, lastName: lastName, email: email.lowercased(), password: password)
                         if responseJson["status"] as! Int == 200 {
                             self.presentationMode.wrappedValue.dismiss()
+                            self.creationSuccess = true
                         } else {
                             withAnimation {
                                 self.showError = true
@@ -142,6 +144,11 @@ struct SignUpView: View {
                     .alert(isPresented: $showError) {
                         Alert(title: Text("Error"), message: Text("Invalid sign up information"), dismissButton: .default(Text("Ok")))
                     }
+                    .alert(isPresented: $creationSuccess) {
+                        Alert(title: Text("Success!"), message: Text("Your account has been successfully created. Please sign in now."),
+                              dismissButton: .default(Text("Dismiss")))
+                    }
+                
                 Spacer()
                 Spacer()
             }
@@ -188,7 +195,7 @@ func signUp(firstName: String, lastName: String, email: String, password: String
                 print(str)
                 responseJson = ["status": 400, "error": str]
             } else {
-//                responseJson = try! JSONSerialization.jsonObject(with: data!, options: []) as! [String: Any]
+                responseJson = try! JSONSerialization.jsonObject(with: data!, options: []) as! [String: Any]
                 responseJson["status"] = httpResponse.statusCode
             }
         }
