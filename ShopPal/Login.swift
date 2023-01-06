@@ -12,7 +12,7 @@ import SwiftUI
 struct LoginView: View {
     
     //Variables to store input field data
-    @State private var usernameOrEmail: String = ""
+    @State private var email: String = ""
     @State private var password: String = ""
     @State private var isLoginInfoCorrect: Bool = false
     @State private var messageToUser: String = ""
@@ -37,9 +37,9 @@ struct LoginView: View {
                         Spacer()
                     }
                     
-                    TextField("Username or email", text: $usernameOrEmail)
-                        .placeholder(when: usernameOrEmail.isEmpty) {
-                            Text("Username or email").foregroundColor(Color(.lightGray))
+                    TextField("Email", text: $email)
+                        .placeholder(when: email.isEmpty) {
+                            Text("Email").foregroundColor(Color(.lightGray))
                         }
                         .textFieldStyle(PlainTextFieldStyle())
                         .multilineTextAlignment(.leading)
@@ -50,12 +50,9 @@ struct LoginView: View {
                         .background(border)
                         .padding(.leading)
                         .padding(.trailing)
-                        .scaledToFit()
                         .padding(4)
                         .textInputAutocapitalization(.never)
                         .disableAutocorrection(true)
-
-//                        .autocapitalization(.none)
                      
                     HybridTextField(text: $password, titleKey: "Password")
                         .placeholder(when: password.isEmpty) {
@@ -76,7 +73,7 @@ struct LoginView: View {
                     //Login button
                     VStack{
                         Button(action:{
-                            let responseJson = ShopPal.login(email: usernameOrEmail.lowercased(), password: password)
+                            let responseJson = ShopPal.login(email: email.lowercased(), password: password)
                             
                             if responseJson["status"] as! Int == 200 {
                                 isLoginInfoCorrect = true
@@ -155,7 +152,7 @@ struct LoginView: View {
     
     func login() {
         // Perform login action here
-        print("Username: \(usernameOrEmail)")
+        print("Username: \(email)")
         print("Password: \(password)")
     }
 }//End of Login screen
@@ -192,4 +189,3 @@ func login(email: String, password: String) -> [String: Any] {
     semaphore.wait()
     return responseJson
 }
-
