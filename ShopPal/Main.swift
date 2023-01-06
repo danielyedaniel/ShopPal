@@ -34,6 +34,11 @@ struct mainScreen: View {
                     Image(systemName: "chart.bar.fill")
                     Text("Chart")
                 }
+            CameraView()
+                .tabItem{
+                    Image(systemName: "camera")
+                    Text("Receipt")
+                }
             SettingsView()
                 .tabItem {
                     Image(systemName: "gear")
