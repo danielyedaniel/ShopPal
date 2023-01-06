@@ -16,6 +16,10 @@
 		9643EB1A295949CD00C46A96 /* ShopPalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9643EB19295949CD00C46A96 /* ShopPalTests.swift */; };
 		9643EB24295949CD00C46A96 /* ShopPalUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9643EB23295949CD00C46A96 /* ShopPalUITests.swift */; };
 		9643EB26295949CD00C46A96 /* ShopPalUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9643EB25295949CD00C46A96 /* ShopPalUITestsLaunchTests.swift */; };
+		96C41D522967C1C500C3CF4B /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C41D512967C1C500C3CF4B /* Main.swift */; };
+		96C41D552967C22D00C3CF4B /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C41D542967C22D00C3CF4B /* Home.swift */; };
+		96C41D572967C25300C3CF4B /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C41D562967C25300C3CF4B /* Settings.swift */; };
+		96C41D592967C26300C3CF4B /* Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C41D582967C26300C3CF4B /* Chart.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +54,10 @@
 		9643EB23295949CD00C46A96 /* ShopPalUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopPalUITests.swift; sourceTree = "<group>"; };
 		9643EB25295949CD00C46A96 /* ShopPalUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopPalUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		967A82E7295CE8F700E5FD82 /* ShopPal */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = ShopPal; sourceTree = "<group>"; };
+		96C41D512967C1C500C3CF4B /* Main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
+		96C41D542967C22D00C3CF4B /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
+		96C41D562967C25300C3CF4B /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		96C41D582967C26300C3CF4B /* Chart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chart.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +116,8 @@
 				9643EB0E295949CD00C46A96 /* Preview Content */,
 				3291CD222967A71E004AE63C /* Signup.swift */,
 				3291CD242967A842004AE63C /* Login.swift */,
+				96C41D512967C1C500C3CF4B /* Main.swift */,
+				96C41D532967C1FC00C3CF4B /* MainTabs */,
 			);
 			path = ShopPal;
 			sourceTree = "<group>";
@@ -143,6 +153,16 @@
 				967A82E7295CE8F700E5FD82 /* ShopPal */,
 			);
 			name = Packages;
+			sourceTree = "<group>";
+		};
+		96C41D532967C1FC00C3CF4B /* MainTabs */ = {
+			isa = PBXGroup;
+			children = (
+				96C41D542967C22D00C3CF4B /* Home.swift */,
+				96C41D562967C25300C3CF4B /* Settings.swift */,
+				96C41D582967C26300C3CF4B /* Chart.swift */,
+			);
+			path = MainTabs;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -275,9 +295,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96C41D592967C26300C3CF4B /* Chart.swift in Sources */,
+				96C41D522967C1C500C3CF4B /* Main.swift in Sources */,
 				9643EB0A295949CC00C46A96 /* ContentView.swift in Sources */,
 				9643EB08295949CC00C46A96 /* ShopPalApp.swift in Sources */,
 				3291CD232967A71E004AE63C /* Signup.swift in Sources */,
+				96C41D572967C25300C3CF4B /* Settings.swift in Sources */,
+				96C41D552967C22D00C3CF4B /* Home.swift in Sources */,
 				3291CD252967A842004AE63C /* Login.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
