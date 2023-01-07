@@ -10,61 +10,66 @@ import SwiftUI
 import AVFoundation
 
 struct CameraView: View {
-    @State private var isShowingImagePicker = false
-    @State private var image: Image?
-    @State private var test = false
+    // @State private var isShowingImagePicker = false
+    // @State private var image: Image?
     @StateObject var camera = CameraModel()
 
     var body: some View {
+        let screenSize: CGRect = UIScreen.main.bounds
+        
         ZStack{
-            CameraPreview(camera: camera)
-                .ignoresSafeArea()
+            VStack{
+                CameraPreview(camera: camera)
+                    .ignoresSafeArea()
+                    .frame(height: screenSize.height * 0.75)
+                
+                Color(red: 0.06, green: 0.06, blue: 0.06)
+                    .ignoresSafeArea()
+            }
             
             VStack {
-                if camera.isTaken {
-                    
-                    HStack{
-                        Spacer()
-                        
-                        Button(action: {camera.retake()}, label: {
-                            Image(systemName: "arrow.triangle.2.circlepath.camera")
-                                .foregroundColor(.black)
-                                .padding()
-                                .background(Color.white)
-                                .clipShape(Circle())
-                        })
-                        .padding(.trailing, 10)
-                    }
-                    
-                }
-                
+                Spacer()
                 Spacer()
                 
                 HStack {
                     
                     if camera.isTaken {
+                        Spacer()
+                        
+                        Button(action: {camera.retake()}, label: {
+                            Text("Retake")
+                                .foregroundColor(.gray)
+                                .fontWeight(.semibold)
+                                .padding(.vertical, 10)
+                                .padding(.horizontal, 5)
+                                .padding(.bottom, 20)
+                        })
+                        
                         Button(action: {if !camera.isSent{camera.sendImage()}}, label: {
                             Text("Save Receipt")
-                                .foregroundColor(.black)
+                                .foregroundColor(.white)
                                 .fontWeight(.semibold)
                                 .padding(.vertical, 10)
                                 .padding(.horizontal, 20)
-                                .background(Color.white)
+                                .background(Color(red: 0.08, green: 0.64, blue: 0.15))
                                 .clipShape(Capsule())
+                                .padding(.bottom, 20)
                         })
                         .padding(.leading)
-                        Spacer()
+                        .padding(.trailing)
                     }
                     else {
                         Button(action: camera.takePic, label: {
                             ZStack {
                                 Circle()
                                     .fill(Color.white)
-                                    .frame(width: 70, height: 70)
+                                    .frame(width: 60, height: 60)
+                                    .padding(.bottom, 15)
                                 
                                 Circle()
                                     .stroke(Color.white, lineWidth: 2)
-                                    .frame(width: 80, height: 80)
+                                    .frame(width: 70, height: 70)
+                                    .padding(.bottom, 15)
                             }
                         })
                     }
@@ -75,8 +80,6 @@ struct CameraView: View {
         .onAppear(perform: {
             camera.Check()
         })
-        .navigationTitle("Scan")
-        
         
         /*
         VStack {
