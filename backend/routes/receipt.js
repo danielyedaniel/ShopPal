@@ -26,7 +26,7 @@ router.post("/add", async (req, res) => {
 
     const receipt = {
         email: req.body.email,
-        receiptDate: parsedReceipt.dateOfPurchase,
+        receiptDate: (new Date()).toISOString(),
         store: parsedReceipt.storeName,
         items: parsedReceipt.items,
         total: parsedReceipt.total,
@@ -36,9 +36,12 @@ router.post("/add", async (req, res) => {
     const params = {
         TableName: process.env.AWS_DyanmoDB_Table,
         Item: receipt,
-    }
+    };
 
-    return res.json(await ddbClient.put(params).promise());
+    await ddbClient.put(params).promise();
+
+    fs.unlinkSync('./receiptParser/' + file.filename);
+    return res.json(receipt)
 });
 
 router.post("/delete", async (req, res) => {

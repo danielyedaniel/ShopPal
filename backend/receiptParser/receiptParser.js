@@ -1,4 +1,3 @@
-const fs = require('fs');
 const { Configuration, OpenAIApi } = require("openai");
 const Tesseract =  require('tesseract.js');
 require("dotenv").config();
@@ -29,8 +28,6 @@ const parseReceipt = async (fileName) => {
     });
 
     const items = response.data.choices[0].text;
-
-    fs.unlinkSync('./receiptParser/' + fileName);
 
     return items;
 }
