@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		323F106B296BA90800A87639 /* Start.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323F106A296BA90800A87639 /* Start.swift */; };
 		3291CD232967A71E004AE63C /* Signup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3291CD222967A71E004AE63C /* Signup.swift */; };
 		3291CD252967A842004AE63C /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3291CD242967A842004AE63C /* Login.swift */; };
 		9643EB08295949CC00C46A96 /* ShopPalApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9643EB07295949CC00C46A96 /* ShopPalApp.swift */; };
@@ -41,6 +42,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		323F106A296BA90800A87639 /* Start.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Start.swift; sourceTree = "<group>"; };
 		3291CD222967A71E004AE63C /* Signup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Signup.swift; sourceTree = "<group>"; };
 		3291CD242967A842004AE63C /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		9643EB04295949CC00C46A96 /* ShopPal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShopPal.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -120,6 +122,7 @@
 				3291CD242967A842004AE63C /* Login.swift */,
 				96C41D512967C1C500C3CF4B /* Main.swift */,
 				96C41D532967C1FC00C3CF4B /* MainTabs */,
+				323F106A296BA90800A87639 /* Start.swift */,
 			);
 			path = ShopPal;
 			sourceTree = "<group>";
@@ -300,6 +303,7 @@
 			files = (
 				96C41D592967C26300C3CF4B /* Chart.swift in Sources */,
 				96C41D522967C1C500C3CF4B /* Main.swift in Sources */,
+				323F106B296BA90800A87639 /* Start.swift in Sources */,
 				9643EB0A295949CC00C46A96 /* ContentView.swift in Sources */,
 				9643EB08295949CC00C46A96 /* ShopPalApp.swift in Sources */,
 				3291CD232967A71E004AE63C /* Signup.swift in Sources */,
@@ -461,7 +465,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ShopPal/Preview Content\"";
-				DEVELOPMENT_TEAM = H98JMDD5TF;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Take photos";
@@ -480,7 +484,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.danielye.ShopPal;
+				PRODUCT_BUNDLE_IDENTIFIER = "JDE-STUDIOS.ShopPal.JDE";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
@@ -499,7 +503,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ShopPal/Preview Content\"";
-				DEVELOPMENT_TEAM = H98JMDD5TF;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Take photos";
@@ -518,7 +522,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.danielye.ShopPal;
+				PRODUCT_BUNDLE_IDENTIFIER = "JDE-STUDIOS.ShopPal.JDE";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
