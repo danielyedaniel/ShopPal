@@ -10,13 +10,40 @@ import SwiftUI
 
 //Login screen
 struct LoginView: View {
-    
     //Variables to store input field data
     @State private var email: String = ""
     @State private var password: String = ""
     @State private var isLoginInfoCorrect: Bool = false
     @State private var messageToUser: String = ""
-    @State private var shouldNav = false
+    @State private var shouldNav: Bool
+    
+    init() {
+        var isLoggedIn = false
+        
+        let data = KeychainManager.get(
+            service: "ShopPal",
+            account: "emailAndPassword"
+        )
+        
+        if (data != nil) {
+            let credentials = try! JSONDecoder().decode([String: String].self, from: data!)
+            let responseJson = ShopPal.login(email: credentials["email"]!.lowercased(), password: credentials["password"]!)
+            if responseJson["status"] as! Int == 200 {
+                isLoggedIn = true
+            } else {
+                KeychainManager.delete(
+                    service: "ShopPal",
+                    account: "emailAndPassword"
+                )
+            }
+        }
+        
+        if (isLoggedIn) {
+            _shouldNav = State(initialValue: true)
+        } else {
+            _shouldNav = State(initialValue: false)
+        }
+    }
 
     var body: some View {
         NavigationView {
@@ -93,21 +120,6 @@ struct LoginView: View {
                                 } catch {
                                     print(error)
                                 }
-                                
-                                // This is how you fetch the email and password from the keychain
-//                                let data = KeychainManager.get(
-//                                    service: "ShopPal",
-//                                    account: "emailAndPassword"
-//                                )
-//
-//
-//                                 do {
-//                                     let credentials = try JSONDecoder().decode([String: String].self, from: data!)
-//
-//                                     print(credentials)
-//                                 } catch {
-//                                     print(error)
-//                                 }
                                 
                                 self.shouldNav = true
                             }

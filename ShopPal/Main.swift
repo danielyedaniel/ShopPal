@@ -108,4 +108,20 @@ class KeychainManager {
         
         return result as? Data
     }
+    
+    static func delete(
+        service: String,
+        account: String
+    ) -> Int32? {
+        let query: [String: AnyObject] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrService as String: service as AnyObject,
+            kSecAttrAccount as String: account as AnyObject,
+        ]
+
+        let status = SecItemDelete(query as CFDictionary)
+
+        
+        return status
+    }
 }
