@@ -21,7 +21,7 @@ struct CameraView: View {
             VStack{
                 CameraPreview(camera: camera)
                     .ignoresSafeArea()
-                    .frame(height: screenSize.height * 0.75)
+                    .frame(height: screenSize.height * 0.6)
                 
                 Color(red: 0.06, green: 0.06, blue: 0.06)
                     .ignoresSafeArea()
