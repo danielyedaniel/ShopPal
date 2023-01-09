@@ -82,12 +82,39 @@ struct LoginView: View {
                             
                             //Navigate to new page if correct
                             if isLoginInfoCorrect {
+                                // Stores login info in keychain
+                                do {
+                                    try KeychainManager.save(
+                                        service: "ShopPal",
+                                        account: "emailAndPassword",
+                                        email: email.lowercased() ,
+                                        password: password
+                                    )
+                                } catch {
+                                    print(error)
+                                }
+                                
+                                // This is how you fetch the email and password from the keychain
+//                                let data = KeychainManager.get(
+//                                    service: "ShopPal",
+//                                    account: "emailAndPassword"
+//                                )
+//
+//
+//                                 do {
+//                                     let credentials = try JSONDecoder().decode([String: String].self, from: data!)
+//
+//                                     print(credentials)
+//                                 } catch {
+//                                     print(error)
+//                                 }
+                                
                                 self.shouldNav = true
                             }
                             else { //Output message to user if incorrect
                                 messageToUser = "Incorrect email or password"
                             }
-                            
+
                             
                         }){
                             Text("Login")
