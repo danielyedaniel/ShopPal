@@ -18,6 +18,9 @@ struct SignUpView: View {
     @State private var confirmPassword: String = ""
     @State private var showError = false
     @State private var creationSuccess = false
+    @State private var isValidEmail = true
+    @State private var isValidPassword = true
+    @State private var messageToUser = ""
 
     
     var body: some View {
@@ -118,20 +121,60 @@ struct SignUpView: View {
                     .disableAutocorrection(true)
                 
                 Button(action: {
-                    if(password == confirmPassword) {
-                        let responseJson = ShopPal.signUp(firstName: firstName, lastName: lastName, email: email.lowercased(), password: password)
-                        if responseJson["status"] as! Int == 200 {
-                            self.presentationMode.wrappedValue.dismiss()
-                            self.creationSuccess = true
-                        } else {
-                            withAnimation {
-                                self.showError = true
+                    isValidEmail = true
+                    isValidPassword = true
+                    var atCounter = 0
+                    var atIndex: Int = -1
+                    var dotIndex: Int = -1
+                    var counter = 0
+                    var dotCounter = 0
+                    
+                    for char in email {
+                        if(char == "@"){
+                            atCounter += 1
+                            atIndex = counter
+                        }
+                        if(char == "."){
+                            dotCounter += 1
+                            dotIndex = counter
+                        }
+                        counter += 1
+                    }
+                    
+                    if(dotIndex < atIndex || dotCounter != 1 || atCounter != 1 || atIndex < 1 || email.count - atIndex + 1 < 3 || email.count - dotIndex + 1 < 1){
+                        isValidEmail = false
+                    }
+                    
+                    if(password.count < 8){
+                        isValidPassword = false
+                    }
+                   
+                    if(isValidEmail){
+                        messageToUser = ""
+                        if(isValidPassword){
+                            messageToUser = ""
+                            if(password == confirmPassword) {
+                                messageToUser = ""
+                                let responseJson = ShopPal.signUp(firstName: firstName, lastName: lastName, email: email.lowercased(), password: password)
+                                if responseJson["status"] as! Int == 200 {
+                                    self.presentationMode.wrappedValue.dismiss()
+                                    self.creationSuccess = true
+                                }
+                                
+                            }else{
+                                messageToUser = "Passwords do not match."
                             }
                         }
+                        else{
+                            messageToUser = "Password must be atleast 8 characters."
+                        }
                     }
-                    else {
-                        self.showError = true
+                    else{
+                        messageToUser = "Invalid email."
                     }
+                
+                    
+                    
                 }) {
                     Text("Submit")
                 }
