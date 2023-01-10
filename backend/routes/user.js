@@ -74,10 +74,9 @@ router.post("/changepassword", async (req, res) => {
             .email({ minDomainSegments: 2, tlds: { allow: ["com", "net", "org", "edu"] } })
             .required()
             .trim(),
-        password: Joi.string().min(8).trim(),
         newPassword: Joi.string().min(8).trim()
     });
-    const { error } = schema.validate({ email: req.body.email, password: req.body.password, newPassword: req.body.newPassword });
+    const { error } = schema.validate({ email: req.body.email, newPassword: req.body.newPassword });
     if (error) return res.status(400).json(error.details);
 
     const salt = await bcrypt.genSalt(10);
