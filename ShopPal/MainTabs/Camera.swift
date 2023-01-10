@@ -10,94 +10,100 @@ import SwiftUI
 import AVFoundation
 
 struct CameraView: View {
-    // @State private var isShowingImagePicker = false
-    // @State private var image: Image?
+    @State private var isShowingImagePicker = false
+    @State private var image: Image?
     @StateObject var camera = CameraModel()
 
     var body: some View {
-        let screenSize: CGRect = UIScreen.main.bounds
-        
-        ZStack{
-            VStack{
-                CameraPreview(camera: camera)
-                    .ignoresSafeArea()
-                    .frame(height: screenSize.height * 0.6)
-                
-                Color(red: 0.06, green: 0.06, blue: 0.06)
-                    .ignoresSafeArea()
-            }
+        GeometryReader { geometry in
+            let screenSize: CGRect = UIScreen.main.bounds
             
-            VStack {
-                Spacer()
-                Spacer()
-                
-                HStack {
-                    
-                    if camera.isTaken {
-                        Spacer()
-                        
-                        Button(action: {camera.retake()}, label: {
-                            Text("Retake")
-                                .foregroundColor(.gray)
-                                .fontWeight(.semibold)
-                                .padding(.vertical, 10)
-                                .padding(.horizontal, 5)
-                                .padding(.bottom, 20)
-                        })
-                        
-                        Button(action: {if !camera.isSent{camera.sendImage()}}, label: {
-                            Text("Save Receipt")
-                                .foregroundColor(.white)
-                                .fontWeight(.semibold)
-                                .padding(.vertical, 10)
-                                .padding(.horizontal, 20)
-                                .background(Color(red: 0.08, green: 0.64, blue: 0.15))
-                                .clipShape(Capsule())
-                                .padding(.bottom, 20)
-                        })
-                        .padding(.leading)
-                        .padding(.trailing)
-                    }
-                    else {
-                        Button(action: camera.takePic, label: {
-                            ZStack {
-                                Circle()
-                                    .fill(Color.white)
-                                    .frame(width: 60, height: 60)
-                                    .padding(.bottom, 15)
-                                
-                                Circle()
-                                    .stroke(Color.white, lineWidth: 2)
-                                    .frame(width: 70, height: 70)
-                                    .padding(.bottom, 15)
-                            }
-                        })
+            ZStack{
+                VStack{
+                    if image != nil {
+                        image?
+                            .resizable()
+                            .scaledToFit()
+                    } else {
+                        VStack{
+                            CameraPreview(camera: camera)
+                                .ignoresSafeArea()
+                                .frame(height: screenSize.height * 0.6)
+                            
+                            Color(red: 0.06, green: 0.06, blue: 0.06)
+                                .ignoresSafeArea()
+                        }
                     }
                 }
-                .frame(height: 75)
+                
+                
+                VStack{
+                    Spacer()
+                    Spacer()
+                    Spacer()
+                    Button("Select a picture") {
+                        self.isShowingImagePicker = true
+                        camera.stopCapture()
+                    }
+                    HStack {
+                        
+                        if camera.isTaken {
+                            
+                            Button(action: {camera.retake()}, label: {
+                                Text("Retake")
+                                    .foregroundColor(.gray)
+                                    .fontWeight(.semibold)
+                                    .padding(.vertical, 10)
+                                    .padding(.horizontal, 5)
+                                    .padding(.bottom, 20)
+                            })
+                            
+                            Button(action: {if !camera.isSent{camera.sendImage()}}, label: {
+                                Text("Save Receipt")
+                                    .foregroundColor(.white)
+                                    .fontWeight(.semibold)
+                                    .padding(.vertical, 10)
+                                    .padding(.horizontal, 20)
+                                    .background(Color(red: 0.08, green: 0.64, blue: 0.15))
+                                    .clipShape(Capsule())
+                                    .padding(.bottom, 20)
+                            })
+                            .padding(.leading)
+                            .padding(.trailing)
+                            
+                        }
+                        else {
+                            Button(action: camera.takePic, label: {
+                                ZStack {
+                                    Circle()
+                                        .fill(Color.white)
+                                        .frame(width: 60, height: 60)
+                                        .padding(.bottom, 15)
+                                    
+                                    Circle()
+                                        .stroke(Color.white, lineWidth: 2)
+                                        .frame(width: 70, height: 70)
+                                        .padding(.bottom, 15)
+                                }
+                            })
+                            .padding(.leading)
+                            .padding(.trailing)                        }
+                    }
+                    .sheet(isPresented: $isShowingImagePicker) {
+                        ImagePicker(image: self.$image, camera: self.camera)
+                    }
+                }
+                
             }
+            
+            .onAppear(perform: {
+                camera.Check()
+            })
         }
-        .onAppear(perform: {
-            camera.Check()
-        })
-        
-        /*
-        VStack {
-            image?
-                .resizable()
-                .scaledToFit()
-            Button(action: {
-                self.isShowingImagePicker = true
-            }) {
-                Text("Take photo")
-            }
-        }
-        .sheet(isPresented: $isShowingImagePicker) {
-            ImagePicker(image: self.$image)
-        }
-         */
     }
+    
 }
+
 
 class CameraModel: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
     @Published var isTaken = false
@@ -184,6 +190,9 @@ class CameraModel: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
         
         //SEND IMAGE TO API SOMEHOW
     }
+    func stopCapture() {
+        self.session.stopRunning()
+    }
 }
 
 struct CameraPreview : UIViewRepresentable {
@@ -197,7 +206,9 @@ struct CameraPreview : UIViewRepresentable {
         camera.preview.videoGravity = .resizeAspectFill
         view.layer.addSublayer(camera.preview)
         
-        camera.session.startRunning()
+        DispatchQueue.global(qos: .background).async {
+            self.camera.session.startRunning()
+        }
         
         return view
     }
@@ -207,10 +218,11 @@ struct CameraPreview : UIViewRepresentable {
     }
 }
 
-/*
+
 struct ImagePicker: UIViewControllerRepresentable {
     @Binding var image: Image?
     @Environment(\.presentationMode) var presentationMode
+    @ObservedObject var camera: CameraModel
 
     class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
         @Binding var image: Image?
@@ -237,6 +249,9 @@ struct ImagePicker: UIViewControllerRepresentable {
     func makeUIViewController(context: UIViewControllerRepresentableContext<ImagePicker>) -> UIImagePickerController {
         let picker = UIImagePickerController()
         picker.delegate = context.coordinator
+        if self.camera.session.isRunning {
+            self.camera.stopCapture()
+        }
         return picker
     }
 
@@ -244,4 +259,5 @@ struct ImagePicker: UIViewControllerRepresentable {
 
     }
 }
-*/
+
+
