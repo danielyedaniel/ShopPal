@@ -41,11 +41,15 @@ struct CameraView: View {
                     Spacer()
                     Spacer()
                     Spacer()
-                    Button("Select a picture") {
-                        self.isShowingImagePicker = true
-                        camera.stopCapture()
-                    }
                     HStack {
+                        Button("Select a picture") {
+                            self.isShowingImagePicker = true
+                            camera.stopCapture()
+                        }
+                        .frame(alignment: .leading)
+                        if image != nil {
+                           //Send to API Kevin!!!
+                        }
                         
                         if camera.isTaken {
                             
@@ -87,8 +91,10 @@ struct CameraView: View {
                                 }
                             })
                             .padding(.leading)
-                            .padding(.trailing)                        }
+                            .padding(.trailing)
+                        }
                     }
+
                     .sheet(isPresented: $isShowingImagePicker) {
                         ImagePicker(image: self.$image, camera: self.camera)
                     }
@@ -257,6 +263,10 @@ struct ImagePicker: UIViewControllerRepresentable {
 
     func updateUIViewController(_ uiViewController: UIImagePickerController, context: UIViewControllerRepresentableContext<ImagePicker>) {
 
+    }
+
+    func sendImage(){
+        //somehow send image here
     }
 }
 
