@@ -51,7 +51,7 @@ router.post("/login", async (req, res) => {
             .email({ minDomainSegments: 2, tlds: { allow: ["com", "net", "org", "edu"] } })
             .required()
             .trim(),
-        password: Joi.string().min(8).trim(),
+        password: Joi.string().min(8).trim().required(),
     });
     const { error } = schema.validate({ email: req.body.email, password: req.body.password });
     if (error) return res.status(400).json(error.details);
