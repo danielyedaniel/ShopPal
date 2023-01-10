@@ -14,11 +14,12 @@ const parseReceipt = async (fileName) => {
 
     const response = await openai.createCompletion({
         model: 'text-davinci-003',
-        prompt: `Parse this receipt and return the store name, address, date of purchase, name and price of each item, 
+        prompt: `Parse this receipt and return the store name, address, name and price of each item, 
         and total as a JavaScript JSON object. Do not include any extra information or characters in the JSON. 
-        Do not include the subtotal, tax, cashtend, or changegiven. If you are unsure about the date, use today's date in iso date format. 
-        Format the dateOfPurchase in iso date format. If you are unsure about any of the properties, set it to unknown.
-        Do not combine items with the same name. If you are unsure about the price, set it to 0.00.
+        Do not include the subtotal, tax, cashtend, or changegiven. If you are unsure about any of the properties, set it to 
+        "unknown". Do not combine items with the same name. If you are unsure about the price, set it to 0.00. 
+        If the text is not a receipt set the "storeName" and "address" to "unknown" and set "items" to an empty array. 
+        Always return the results as an object wrapped in curly brackets.
         Text: ${text}`,
         temperature: 0,
         max_tokens: 2048,
@@ -29,6 +30,7 @@ const parseReceipt = async (fileName) => {
 
     const items = response.data.choices[0].text;
 
+    console.log(items);
     return items;
 }
 

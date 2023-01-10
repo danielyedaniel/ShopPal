@@ -22,13 +22,20 @@ router.post("/add", async (req, res) => {
 
     const uploadedImage = await s3.upload(s3params).promise();
 
-    const parsedReceipt = RJSON.parse(await parseReceipt(file.filename));
+    let parsedReceipt;
+    try {
+        parsedReceipt = RJSON.parse(await parseReceipt(file.filename));
+    } catch(err) {
+        fs.unlinkSync('./receiptParser/' + file.filename);
+        return res.status(400).json(err);
+    }
 
     const receipt = {
         email: req.body.email,
         receiptDate: (new Date()).toISOString(),
         store: parsedReceipt.storeName,
         items: parsedReceipt.items,
+        address: parsedReceipt.address,
         total: parsedReceipt.total,
         image: uploadedImage.Location,
     };
@@ -51,6 +58,42 @@ router.post("/test/add", async (req, res) => {
 
     fs.unlinkSync('./receiptParser/' + file.filename);
     return res.json("Success")
+});
+
+router.post("/test/add2", async (req, res) => {
+    const file = req.file;
+
+    if (!file) return res.status(400).json("No file uploaded");
+
+    // Upload file to S3
+    const s3params = {
+        Bucket: process.env.AWS_S3_BUCKET_NAME,
+        Key: file.filename,
+        Body: fs.readFileSync(file.path),
+    };
+
+    const uploadedImage = await s3.upload(s3params).promise();
+
+    // const parsedReceipt = RJSON.parse(await parseReceipt(file.filename));
+
+    const receipt = {
+        email: req.body.email,
+        receiptDate: (new Date()).toISOString(),
+        store: 'test',
+        items: 'test',
+        total: 'test',
+        image: uploadedImage.Location,
+    };
+
+    const params = {
+        TableName: process.env.AWS_DyanmoDB_Table,
+        Item: receipt,
+    };
+
+    await ddbClient.put(params).promise();
+
+    fs.unlinkSync('./receiptParser/' + file.filename);
+    return res.json(receipt)
 });
 
 router.post("/delete", async (req, res) => {

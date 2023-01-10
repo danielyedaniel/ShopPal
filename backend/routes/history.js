@@ -15,7 +15,7 @@ router.post("/get", async (req, res) => {
     };
 
     const receipts = await ddbClient.query(params).promise();
-    return res.json(receipts.Items);
+    return res.json({items: receipts.Items});
 });
 
 module.exports = router;
