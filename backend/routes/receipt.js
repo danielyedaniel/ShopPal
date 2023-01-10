@@ -44,6 +44,15 @@ router.post("/add", async (req, res) => {
     return res.json(receipt)
 });
 
+router.post("/test/add", async (req, res) => {
+    const file = req.file;
+
+    if (!file) return res.status(400).json("No file uploaded");
+
+    fs.unlinkSync('./receiptParser/' + file.filename);
+    return res.json("Success")
+});
+
 router.post("/delete", async (req, res) => {
 
 });

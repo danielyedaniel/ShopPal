@@ -68,4 +68,37 @@ router.post("/login", async (req, res) => {
     res.status(200).json(user.Item);
 });
 
+router.post("/changepassword", async (req, res) => {
+    const schema = Joi.object({
+        email: Joi.string()
+            .email({ minDomainSegments: 2, tlds: { allow: ["com", "net", "org", "edu"] } })
+            .required()
+            .trim(),
+        password: Joi.string().min(8).trim(),
+        newPassword: Joi.string().min(8).trim()
+    });
+    const { error } = schema.validate({ email: req.body.email, password: req.body.password, newPassword: req.body.newPassword });
+    if (error) return res.status(400).json(error.details);
+
+    const salt = await bcrypt.genSalt(10);
+    const newPasswordHash = await bcrypt.hash(req.body.newPassword, salt);
+
+    const params = {
+        TableName: "ShopPal",
+        Key: {
+          email: req.body.email,
+          receiptDate: "profile",
+        },
+        UpdateExpression: "set password = :p",
+
+        ExpressionAttributeValues: {
+            ":p": newPasswordHash,
+        },
+        ReturnValues: "UPDATED_NEW",
+    };
+
+    const result = await ddbClient.update(params).promise();
+    res.json(result);
+});
+
 module.exports = router;
