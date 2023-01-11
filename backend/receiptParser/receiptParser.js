@@ -18,6 +18,7 @@ const parseReceipt = async (fileName) => {
         and total as a JavaScript JSON object. Do not include any extra information or characters in the JSON. 
         Do not include the subtotal, tax, cashtend, or changegiven. If you are unsure about any of the properties, set it to 
         "unknown". Do not combine items with the same name. If you are unsure about the price, set it to 0.00. 
+        Round each price to 2 decimal places. Convert the date into this format MM/DD/YYYY.
         If the text is not a receipt set the "storeName" and "address" to "unknown" and set "items" to an empty array. 
         Always return the results as an object wrapped in curly brackets.
         Text: ${text}`,
