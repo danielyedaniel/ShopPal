@@ -8,51 +8,42 @@
 import Foundation
 import SwiftUI
 
-
-//Graph
 struct ChartView: View {
-    let slices  = [1,2,3,4,5,6,7]
-    let colors: [UIColor] = [.red, .orange, .yellow, .green, .blue, .cyan, .purple]
+    var body: some View {
+        BarGraph(data: [("A", 40.0), ("B", 30.0), ("C", 20.0), ("D", 10.0)])
+    }
+}
+
+struct BarGraph: View {
+    var data: [(String, Double)]
 
     var body: some View {
         VStack {
-            Pie(slices: slices.enumerated().map { (index, slice) in
-                return (Double(slice), Color(colors[index]))
-            })
-            
-            List(slices, id: \.self) { slice in
-                Text("\(slice)")
+            HStack(alignment: .bottom, spacing: 16) {
+                ForEach(data.indices) { index in
+                    BarView(value: self.data[index].1)
+                        .frame(width: 50, height: 200)
+                        .animation(.default)
+                }
             }
+            .padding()
+            .background(Color.white.opacity(0.2))
+            .cornerRadius(8)
         }
     }
 }
 
-//Graph Helper
-struct Pie: View {
-
-    @State var slices: [(Double, Color)]
+struct BarView: View {
+    var value: Double
 
     var body: some View {
-        Canvas { context, size in
-            let total = slices.reduce(0) { $0 + $1.0 }
-            context.translateBy(x: size.width * 0.5, y: size.height * 0.5)
-            var pieContext = context
-            pieContext.rotate(by: .degrees(-90))
-            let radius = min(size.width, size.height) * 0.48
-            var startAngle = Angle.zero
-            for (value, color) in slices {
-                let angle = Angle(degrees: 360 * (value / total))
-                let endAngle = startAngle + angle
-                let path = Path { p in
-                    p.move(to: .zero)
-                    p.addArc(center: .zero, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: false)
-                    p.closeSubpath()
-                }
-                pieContext.fill(path, with: .color(color))
-
-                startAngle = endAngle
+        VStack {
+            ZStack(alignment: .bottom) {
+                Capsule().frame(width: 40, height: 200)
+                    .foregroundColor(Color.white.opacity(0.2))
+                Capsule().frame(width: 30, height: CGFloat(value) * 2)
+                    .foregroundColor(Color.green)
             }
         }
-        .aspectRatio(1, contentMode: .fit)
     }
 }

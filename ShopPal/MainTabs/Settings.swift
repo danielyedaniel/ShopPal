@@ -54,7 +54,6 @@ struct SettingsView: View {
                         .padding(.trailing)
                         .padding(4)
                         .disableAutocorrection(true)
-                        
           
                 
                 TextField("New password", text: $enteredNew)
@@ -72,7 +71,6 @@ struct SettingsView: View {
                     .padding(.trailing)
                     .padding(4)
                     .disableAutocorrection(true)
-                  
                 
                 TextField("Confirm password", text: $enteredConfirm)
                     .placeholder(when: enteredConfirm.isEmpty) {
@@ -89,13 +87,15 @@ struct SettingsView: View {
                     .padding(.trailing)
                     .padding(4)
                     .disableAutocorrection(true)
-                   
                     
                 
                 Group{
                     Spacer()
                     
                     Text(messageToUser)
+                        .font(.system(size: 20, weight: .regular, design: .default))
+                        .background(Color.black)
+                        .foregroundColor(Color(.red))
                     
                     Spacer()
                 }

@@ -177,13 +177,14 @@ struct SignUpView: View {
                     
                 }) {
                     Text("Submit")
+                        .font(.system(size: 20, weight: .bold, design: .default))
+                        .foregroundColor(.black)
+                        .frame(width: 220, height: 60)
+                        .background(Color.green)
+                        .cornerRadius(15)
+                        .padding(.top, 20)
                 }
-                    .font(.system(size: 20, weight: .bold, design: .default))
-                    .foregroundColor(.black)
-                    .frame(width: 220, height: 60)
-                    .background(Color.green)
-                    .cornerRadius(15)
-                    .padding(.top, 20)
+                    
                     .alert(isPresented: $showError) {
                         Alert(title: Text("Error"), message: Text("Invalid sign up information"), dismissButton: .default(Text("Ok")))
                     }
