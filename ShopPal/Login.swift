@@ -8,9 +8,6 @@
 import Foundation
 import SwiftUI
 
-var globalEmail: String = ""
-var globalPass: String = ""
-
 //Login screen
 struct LoginView: View {
     //Variables to store input field data
@@ -103,8 +100,6 @@ struct LoginView: View {
                     VStack{
                         Button(action:{
                             let responseJson = ShopPal.login(email: email.lowercased(), password: password)
-                            globalPass = password
-                            globalEmail = email
                             
                             if responseJson["status"] as! Int == 200 {
                                 isLoginInfoCorrect = true

@@ -29,7 +29,7 @@ struct CameraView: View {
             VStack{
                 CameraPreview(camera: camera)
                     .ignoresSafeArea()
-                    .frame(height: screenSize.height * 0.6)
+                    .frame(height: screenSize.height - 270)
                 
                 Color(red: 0.06, green: 0.06, blue: 0.06)
                     .ignoresSafeArea()
@@ -44,7 +44,7 @@ struct CameraView: View {
                     if camera.isTaken {
                         Spacer()
                         
-                        Button(action: {camera.retake()}, label: {
+                        Button(action: camera.isLoading ? {} : {camera.retake()}, label: {
                             Text("Retake")
                                 .foregroundColor(.gray)
                                 .fontWeight(.semibold)
@@ -54,7 +54,7 @@ struct CameraView: View {
                         })
                         
                         Button(action: {if !camera.isSent{camera.sendImage()}}, label: {
-                            Text("Save Receipt")
+                            Text(camera.isLoading ? "Saving..." : "Save Receipt")
                                 .foregroundColor(.white)
                                 .fontWeight(.semibold)
                                 .padding(.vertical, 10)
@@ -67,7 +67,10 @@ struct CameraView: View {
                         .padding(.trailing)
                         .alert(isPresented: $camera.sentSuccess) {
                                                     Alert(title: Text("Success!"), message: Text("Your receipt has been successfully scanned and saved."),
-                                                          dismissButton: .default(Text("Dismiss")))
+                                                          dismissButton: .default(Text("Dismiss"), action: {
+                                                        camera.retake()
+                                                        camera.isSent = false
+                                                    }))
                                                 }
                     }
                     else {
@@ -92,22 +95,6 @@ struct CameraView: View {
         .onAppear(perform: {
             camera.Check()
         })
-        
-        /*
-        VStack {
-            image?
-                .resizable()
-                .scaledToFit()
-            Button(action: {
-                self.isShowingImagePicker = true
-            }) {
-                Text("Take photo")
-            }
-        }
-        .sheet(isPresented: $isShowingImagePicker) {
-            ImagePicker(image: self.$image)
-        }
-         */
     }
 }
 
@@ -120,6 +107,7 @@ class CameraModel: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
     @Published var isSent = false
     @Published var picData = Data(count: 0)
     @Published var sentSuccess = false
+    @Published var isLoading = false
     
     func Check(){
         switch AVCaptureDevice.authorizationStatus(for: .video) {
@@ -163,6 +151,10 @@ class CameraModel: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
     
     func takePic() {
         DispatchQueue.global(qos: .background).async {
+            if !self.session.isRunning {
+                self.session.startRunning()
+            }
+            
             self.output.capturePhoto(with: AVCapturePhotoSettings(), delegate: self)
             self.session.stopRunning()
             
@@ -184,53 +176,60 @@ class CameraModel: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
     }
     
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
-        if error != nil {
-            return
-        }
         guard let imageData = photo.fileDataRepresentation() else {return}
         self.picData = imageData
     }
     
     func sendImage() {
-            let image = UIImage(data: self.picData)
-            self.isSent = true
+        let image = UIImage(data: self.picData)
+        self.isSent = true
+        
+        let data = KeychainManager.get(
+                service: "ShopPal",
+                account: "emailAndPassword"
+            )
+        let credentials = try! JSONDecoder().decode([String: String].self, from: data!)
             
-            if self.sentSuccess == true {
-                self.sentSuccess = false
+        if self.sentSuccess == true {
+            self.sentSuccess = false
+        }
+        
+        let imageData: Data = image!.jpegData(compressionQuality: 0.5)!
+        
+        let url = URL(string: "https://www.wangevan.com/receipt/add")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+    
+        let boundary = "Boundary-\(UUID().uuidString)"
+        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+            
+        request.httpBody = createBody(parameters: ["password": (credentials["password"])!, "email": (credentials["email"])!],
+                                        boundary: boundary,
+                                        data: imageData,
+                                        mimeType: "image/jpeg",
+                                        filename: "image.jpg")
+
+        self.isLoading = true
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                print("error: \(error)")
+                return
             }
-            
-            let imageData: Data = image!.jpegData(compressionQuality: 0.5)!
-            
-            let url = URL(string: "https://www.wangevan.com/receipt/test/add2")!
-            var request = URLRequest(url: url)
-            request.httpMethod = "POST"
-            
-            let boundary = "Boundary-\(UUID().uuidString)"
-            request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
-            
-            request.httpBody = createBody(parameters: ["password": globalPass, "email": globalEmail],
-                                            boundary: boundary,
-                                            data: imageData,
-                                            mimeType: "image/jpeg",
-                                            filename: "image.jpg")
-            
-            let task = URLSession.shared.dataTask(with: request) { data, response, error in
-                if let error = error {
-                    print("error: \(error)")
-                    return
-                }
-                if let response = response as? HTTPURLResponse {
-                    print("statusCode: \(response.statusCode)")
-                    DispatchQueue.main.async {
+            if let response = response as? HTTPURLResponse {
+                print("statusCode: \(response.statusCode)")
+                DispatchQueue.main.async {
+                    if response.statusCode == 200 {
                         self.sentSuccess = true
                     }
-                }
-                if let data = data, let dataString = String(data: data, encoding: .utf8) {
-                    print("data: \(dataString)")
+                    self.isLoading = false
                 }
             }
-            task.resume()
+            if let data = data, let dataString = String(data: data, encoding: .utf8) {
+                print("data: \(dataString)")
+            }
         }
+        task.resume()
+    }
     
     func createBody(parameters: [String: String],
                         boundary: String,
@@ -278,42 +277,3 @@ struct CameraPreview : UIViewRepresentable {
         // this needs to be here for some reason but never used
     }
 }
-
-/*
-struct ImagePicker: UIViewControllerRepresentable {
-    @Binding var image: Image?
-    @Environment(\.presentationMode) var presentationMode
-
-    class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
-        @Binding var image: Image?
-        var parent: ImagePicker
-
-        init(image: Binding<Image?>, parent: ImagePicker) {
-            _image = image
-            self.parent = parent
-        }
-
-        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-            if let uiImage = info[.originalImage] as? UIImage {
-                image = Image(uiImage: uiImage)
-            }
-
-            parent.presentationMode.wrappedValue.dismiss()
-        }
-    }
-
-    func makeCoordinator() -> Coordinator {
-        return Coordinator(image: $image, parent: self)
-    }
-
-    func makeUIViewController(context: UIViewControllerRepresentableContext<ImagePicker>) -> UIImagePickerController {
-        let picker = UIImagePickerController()
-        picker.delegate = context.coordinator
-        return picker
-    }
-
-    func updateUIViewController(_ uiViewController: UIImagePickerController, context: UIViewControllerRepresentableContext<ImagePicker>) {
-
-    }
-}
-*/
