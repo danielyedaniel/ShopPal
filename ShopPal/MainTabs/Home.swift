@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import UIKit
 
 
 //Home Screen
@@ -20,29 +21,37 @@ struct HomeView: View {
     }
 
     var body: some View {
-      VStack(alignment: .leading) {
-          ForEach(receipts.items, id: \.self) { receipt in
-              VStack(alignment: .leading) {
-                  Text(receipt.store)
-                      .font(.headline)
-                  Text(receipt.receiptDate)
-                      .font(.subheadline)
-//                  Image(uiImage: receipt.image)
-//                      .resizable()
-//                      .frame(width: 300, height: 150)
-                  Text("Total: $\(receipt.total)")
-                      .font(.headline)
-                  ForEach(receipt.items, id: \.self) { item in
-                      HStack {
-                          Text(item.name)
-                          Spacer()
-                          Text("$\(item.price)")
-                      }
-                  }
-              }
-          }
-      }
+        NavigationView {
+            VStack(alignment: .leading) {
+                ForEach(receipts.items, id: \.self) { receipt in
+                    NavigationLink(destination: ReceiptView(receipt: receipt)) {
+                        HStack {
+                            Text(receipt.store)
+                            Spacer()
+                            Text("$\(String(format: "%.2f", receipt.total))")
+                            Spacer()
+                            Text(receipt.receiptDate)
+                        }.background(RoundedRectangle(cornerRadius: 32)
+                          .strokeBorder(LinearGradient(
+                            gradient: .init(colors: [
+                            ]
+                          ),
+                          startPoint: .topLeading,
+                          endPoint: .bottomTrailing
+                          ))
+                        ).padding(20)
+                    }
+
+                    .background(border)
+                }
+                .navigationBarTitle("Receipts")
+                Spacer()
+
+            }
+            
+        }
     }
+
     
     var border: some View {
         RoundedRectangle(cornerRadius: 16)
@@ -66,6 +75,34 @@ struct HomeView: View {
     
 }//End of home screen
 
+struct ReceiptView: View {
+    var receipt: Receipt
+    
+    var body: some View {
+        VStack(alignment: .leading) {
+            Text(receipt.store)
+                .font(.headline)
+            Text(receipt.receiptDate)
+                .font(.subheadline)
+            if let url = URL(string: receipt.image),
+                let data = try? Data(contentsOf: url),
+                let uiImage = UIImage(data: data) {
+                  Image(uiImage: uiImage)
+                      .resizable()
+                      .frame(width: 300, height: 400)
+            }
+            Text("$\(String(format: "%.2f", receipt.total))")
+                .font(.headline)
+            ForEach(receipt.items, id: \.self) { item in
+                HStack {
+                    Text(item.name)
+                    Spacer()
+                    Text("$\(String(format: "%.2f", item.price))")
+                }
+            }
+        }
+    }
+}
 
 struct Receipts: Decodable {
     let items: [Receipt]

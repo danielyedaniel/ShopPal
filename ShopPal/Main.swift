@@ -105,7 +105,6 @@ class KeychainManager {
             query as CFDictionary,
             &result
         )
-        
         return result as? Data
     }
     
