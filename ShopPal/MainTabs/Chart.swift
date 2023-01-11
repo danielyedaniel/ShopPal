@@ -10,7 +10,24 @@ import SwiftUI
 
 struct ChartView: View {
     var body: some View {
-        BarGraph(data: [("A", 40.0), ("B", 30.0), ("C", 20.0), ("D", 10.0)])
+        VStack{
+            Spacer()
+            Text("Monthly Spending")
+                .foregroundColor(.green)
+                .font(.system(size: 40, weight: .heavy, design: .default))
+            Text("Report")
+                .foregroundColor(.green)
+                .font(.system(size: 40, weight: .heavy, design: .default))
+            Spacer()
+            BarGraph(data: [("A", 40.0), ("B", 30.0), ("C", 20.0), ("D", 10.0)])
+            Spacer()
+            Spacer()
+            Spacer()
+            Spacer()
+            Spacer()
+        }
+        
+        
     }
 }
 
