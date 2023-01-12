@@ -8,6 +8,7 @@ require("dotenv").config();
 
 const router = express.Router();
 
+// Add a receipt to the database
 router.post("/add", async (req, res) => {
     const file = req.file;
 
@@ -22,6 +23,7 @@ router.post("/add", async (req, res) => {
 
     const uploadedImage = await s3.upload(s3params).promise();
 
+    // Parse receipt using receipt parser function
     let parsedReceipt;
     try {
         parsedReceipt = RJSON.parse(await parseReceipt(file.filename));
@@ -45,12 +47,16 @@ router.post("/add", async (req, res) => {
         Item: receipt,
     };
 
+    // Add receipt to database
     await ddbClient.put(params).promise();
 
+    // Delete image that was locally saved
     fs.unlinkSync('./receiptParser/' + file.filename);
+
     return res.json(receipt)
 });
 
+// Test api 
 router.post("/test/add", async (req, res) => {
     const file = req.file;
 
@@ -60,6 +66,7 @@ router.post("/test/add", async (req, res) => {
     return res.json("Success")
 });
 
+// Test api
 router.post("/test/add2", async (req, res) => {
     const file = req.file;
 

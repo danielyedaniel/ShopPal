@@ -10,15 +10,17 @@ const openai = new OpenAIApi(configuration);
 const parseReceipt = async (fileName) => {
     const receiptImagePath = './receiptParser/' + fileName;
 
+    // Parse receipt using Tesseract
     const text = (await Tesseract.recognize(receiptImagePath, 'eng')).data.text;
 
+    // Parses receipt using OpenAI
     const response = await openai.createCompletion({
         model: 'text-davinci-003',
         prompt: `Parse this receipt and return the store name, address, name and price of each item, 
-        and total as a JavaScript JSON object. Do not include any extra information or characters in the JSON. 
+        and total as a JavaScript JSON object. Do not include any extra information or characters in the JSON.
+        Make the store name match up to an existing store.
         Do not include the subtotal, tax, cashtend, or changegiven. If you are unsure about any of the properties, set it to 
-        "unknown". Do not combine items with the same name. If you are unsure about the price, set it to 0.00. 
-        Round each price to 2 decimal places. Convert the date into this format MM/DD/YYYY.
+        "unknown". Do not combine items with the same name. If you are unsure about the price, set it to 0.00.
         If the text is not a receipt set the "storeName" and "address" to "unknown" and set "items" to an empty array. 
         Always return the results as an object wrapped in curly brackets.
         Text: ${text}`,
@@ -31,7 +33,6 @@ const parseReceipt = async (fileName) => {
 
     const items = response.data.choices[0].text;
 
-    console.log(items);
     return items;
 }
 

@@ -4,6 +4,7 @@ require("dotenv").config();
 
 const router = express.Router();
 
+// Get all receipts for a user
 router.post("/get", async (req, res) => {
     const params = {
         TableName: process.env.AWS_DyanmoDB_Table,
