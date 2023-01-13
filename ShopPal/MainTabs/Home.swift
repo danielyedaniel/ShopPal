@@ -30,7 +30,7 @@ struct HomeView: View {
                             Spacer()
                             Text("$\(String(format: "%.2f", receipt.total))")
                             Spacer()
-                            Text(receipt.receiptDate)
+                            Text(formatDate(receipt.receiptDate))
                         }.background(RoundedRectangle(cornerRadius: 32)
                           .strokeBorder(LinearGradient(
                             gradient: .init(colors: [
@@ -51,6 +51,7 @@ struct HomeView: View {
             
         }
     }
+
 
     
     var border: some View {
@@ -82,7 +83,7 @@ struct ReceiptView: View {
         VStack(alignment: .leading) {
             Text(receipt.store)
                 .font(.headline)
-            Text(receipt.receiptDate)
+            Text(formatDate(receipt.receiptDate))
                 .font(.subheadline)
             if let url = URL(string: receipt.image),
                 let data = try? Data(contentsOf: url),
@@ -151,4 +152,12 @@ func getReceipts() -> Receipts {
 
     let receipts = try! JSONDecoder().decode(Receipts.self, from: responseData!)
     return receipts
+}
+
+func formatDate(_ dateString: String) -> String {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+    let date = dateFormatter.date(from: dateString)
+    dateFormatter.dateFormat = "MM/dd/yyyy"
+    return dateFormatter.string(from: date!)
 }
