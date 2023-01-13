@@ -4,7 +4,7 @@
 ShopPal is an IOS app that allows users to take a picture of their receipts and save them in the app. Users can then view, sort and organize their receipts at any time.
 
 ## How we built it: 
-We used Swift to design the user flow of the application and develop several pages of the IOS app. We also created functions in Swift to facilitate communication between the app and the server, including login, signup and fetching user-uploaded receipts. To ensure that the user's private information was securely stored, we integrated a stay logged-in feature using Swift Keychain.
+We built our app using a combination of technologies. For the mobile part, we used XCode and the development languages SwiftUI and Swift. On the backend, we utilized Node.js and the Express framework. To handle the database and storage of images, we utilized Amazon Web Services (AWS). The Node.js server was also hosted on AWS. This combination of technologies allowed us to create a seamless and robust app that delivers a great user experience.
 
 ## Challenges we ran into: 
 One of the biggest challenges we faced was building the backend server using Node.js and Express. We had to ensure that all user actions were facilitated, including login, signup, uploading a receipt, retrieving multiple receipts, etc. We also faced challenges while integrating and utilizing Amazon Web Services (AWS), including EC2, S3 and DynamoDB, to store data and images and host the server.
