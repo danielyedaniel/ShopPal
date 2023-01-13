@@ -18,7 +18,9 @@ struct SettingsView: View {
     @State private var messageToUser = ""
     @State private var email: String
     
+    //Initializer
     init() {
+        //User data that is stored on the device
         let data = KeychainManager.get(
                     service: "ShopPal",
                     account: "emailAndPassword"
@@ -39,6 +41,7 @@ struct SettingsView: View {
                     .font(.system(size: 40, weight: .heavy, design: .default))
                 
 
+                    //Text field for current password
                     TextField("Current password", text: $enteredCur)
                         .placeholder(when: enteredCur.isEmpty) {
                             Text("Current password").foregroundColor(Color(.lightGray))
@@ -55,7 +58,8 @@ struct SettingsView: View {
                         .padding(4)
                         .disableAutocorrection(true)
           
-                
+            
+                //Text field for new password
                 TextField("New password", text: $enteredNew)
                     .placeholder(when: enteredNew.isEmpty) {
                         Text("New password").foregroundColor(Color(.lightGray))
@@ -72,6 +76,7 @@ struct SettingsView: View {
                     .padding(4)
                     .disableAutocorrection(true)
                 
+            //Text field to confirm new password
                 TextField("Confirm password", text: $enteredConfirm)
                     .placeholder(when: enteredConfirm.isEmpty) {
                         Text("Confirm password").foregroundColor(Color(.lightGray))
@@ -101,18 +106,25 @@ struct SettingsView: View {
                 }
                 
                 Button {
+                    //Testing
                     print(enteredCur)
                     print(currPassword)
                     print(enteredNew)
                     print(enteredConfirm)
+                    
+                    //Checks if new password is valid, if it is different from the original and that it matches the confirmed password
                     if(enteredCur == currPassword && enteredCur != enteredNew && enteredNew == enteredConfirm){
+                        //Api call to change account info
                         ShopPal.changePassword(email: email.lowercased(), newPassword: enteredNew)
+                        //Delete old account info from device
                         KeychainManager.delete(
                             service: "ShopPal",
                             account: "emailAndPassword"
                         )
+                        //Closes main screen and returns to login
                         self.presentationMode.wrappedValue.dismiss()
                     }
+                    //Error messages to user
                     else if(enteredCur != currPassword){
                         messageToUser = "Current password is incorrect"
                     }
@@ -140,6 +152,7 @@ struct SettingsView: View {
                 Spacer()
             
             Button {
+                //Removes user data from device and returns to login
                 KeychainManager.delete(
                     service: "ShopPal",
                     account: "emailAndPassword"
@@ -175,6 +188,7 @@ struct SettingsView: View {
       }
 }
 
+//API call to change account password
 func changePassword(email: String, newPassword: String) -> [String: Any] {
     let url = URL(string: "https://www.wangevan.com/user/changepassword")!
     var request = URLRequest(url: url)
