@@ -119,7 +119,7 @@ struct SignUpView: View {
                     .padding(4)
 //                    .autocapitalization(.none)
                     .disableAutocorrection(true)
-                
+            //Commment
                 Button(action: {
                     isValidEmail = true
                     isValidPassword = true
