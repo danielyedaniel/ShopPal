@@ -75,24 +75,26 @@ struct HomeView: View {
     
     
 }//End of home screen
-
 struct ReceiptView: View {
     var receipt: Receipt
-    
+
     var body: some View {
-        VStack(alignment: .leading) {
-            Text(receipt.store)
-                .font(.headline)
-            Text(formatDate(receipt.receiptDate))
-                .font(.subheadline)
+        VStack(alignment: .leading, spacing: 0) {
+            HStack {
+                Text(receipt.store)
+                    .font(.system(size: 25, weight: .bold))
+                Spacer()
+                Text(formatDate(receipt.receiptDate))
+                    .font(.subheadline)
+            }
             if let url = URL(string: receipt.image),
                 let data = try? Data(contentsOf: url),
                 let uiImage = UIImage(data: data) {
-                  Image(uiImage: uiImage)
-                      .resizable()
-                      .frame(width: 300, height: 400)
+                Image(uiImage: uiImage)
+                    .resizable()
+                    .frame(width: 300, height: 400)
             }
-            Text("$\(String(format: "%.2f", receipt.total))")
+            Text("Items:")
                 .font(.headline)
             ForEach(receipt.items, id: \.self) { item in
                 HStack {
@@ -101,9 +103,15 @@ struct ReceiptView: View {
                     Text("$\(String(format: "%.2f", item.price))")
                 }
             }
-        }
+            Text("Total: $\(String(format: "%.2f", receipt.total))")
+                .font(.headline)
+            Spacer()
+        }.padding(.top)
     }
 }
+
+
+
 
 struct Receipts: Decodable {
     let items: [Receipt]
