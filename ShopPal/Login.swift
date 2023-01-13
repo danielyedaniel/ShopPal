@@ -17,14 +17,17 @@ struct LoginView: View {
     @State private var messageToUser: String = ""
     @State private var shouldNav: Bool
     
+    //Initializer
     init() {
         var isLoggedIn = false
         
+        //Stores user data on device
         let data = KeychainManager.get(
             service: "ShopPal",
             account: "emailAndPassword"
         )
         
+        //Check if user should be automatically logged in
         if (data != nil) {
             let credentials = try! JSONDecoder().decode([String: String].self, from: data!)
             let responseJson = ShopPal.login(email: credentials["email"]!.lowercased(), password: credentials["password"]!)
@@ -38,6 +41,7 @@ struct LoginView: View {
             }
         }
         
+        //Automatically login user if required
         if (isLoggedIn) {
             _shouldNav = State(initialValue: true)
         } else {
@@ -64,6 +68,7 @@ struct LoginView: View {
                         Spacer()
                     }
                     
+                    //Email text field
                     TextField("Email", text: $email)
                         .placeholder(when: email.isEmpty) {
                             Text("Email").foregroundColor(Color(.lightGray))
@@ -81,6 +86,7 @@ struct LoginView: View {
                         .textInputAutocapitalization(.never)
                         .disableAutocorrection(true)
                      
+                    //Password text field
                     HybridTextField(text: $password, titleKey: "Password")
                         .placeholder(when: password.isEmpty) {
                             Text("Password").foregroundColor(Color(.lightGray))
@@ -98,7 +104,9 @@ struct LoginView: View {
                     
                     //Login button
                     VStack{
+                        
                         Button(action:{
+                            //API call to check if login info is correct
                             let responseJson = ShopPal.login(email: email.lowercased(), password: password)
                             
                             if responseJson["status"] as! Int == 200 {
@@ -138,6 +146,7 @@ struct LoginView: View {
                                 .padding(.top, 20)
                         }
                         
+                        //Navigates to main screen if info is valid
                         NavigationLink(destination: mainScreen(), isActive: $shouldNav){
                             Spacer()
                         }
@@ -160,7 +169,8 @@ struct LoginView: View {
                         Text("Don't have an account?")
                             .font(.system(size: 20, weight: .regular, design: .default))
                             .foregroundColor(Color(.lightGray))
-                        
+                            
+                            //Navigates to sign up page
                             NavigationLink(destination: SignUpView()){
                                 Text("SIGN UP")
                                     .font(.system(size: 20, weight: .bold, design: .default))
@@ -196,6 +206,7 @@ struct LoginView: View {
 }//End of Login screen
 
 
+//API call for logging in 
 func login(email: String, password: String) -> [String: Any] {
     let url = URL(string: "https://www.wangevan.com/user/login")!
     var request = URLRequest(url: url)
