@@ -147,26 +147,33 @@ struct SignUpView: View {
                         counter += 1
                     }
                     
+                    //If email is not valid set valid email var to false
                     if(dotIndex < atIndex || dotCounter != 1 || atCounter != 1 || atIndex < 1 || email.count - atIndex + 1 < 3 || email.count - dotIndex + 1 < 1){
                         isValidEmail = false
                     }
                     
+                    //Check if password is valid
                     if(password.count < 8){
                         isValidPassword = false
                     }
                    
+                    
+                    //Check if email password and confirm password is corrct
                     if(isValidEmail){
                         messageToUser = ""
                         if(isValidPassword){
                             messageToUser = ""
                             if(password == confirmPassword) {
                                 messageToUser = ""
+                                //API call to create an account
                                 let responseJson = ShopPal.signUp(firstName: firstName, lastName: lastName, email: email.lowercased(), password: password)
+                                //If successful account creation, return to login page
                                 if responseJson["status"] as! Int == 200 {
                                     self.presentationMode.wrappedValue.dismiss()
                                     self.creationSuccess = true
                                 }
                                 
+                                //Error messages to user for misinput 
                             }else{
                                 messageToUser = "Passwords do not match."
                             }
