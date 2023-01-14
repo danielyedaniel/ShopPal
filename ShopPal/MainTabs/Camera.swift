@@ -10,6 +10,7 @@ import SwiftUI
 import AVFoundation
 import UIKit
 
+// Useful extension to convert image to sendable data
 extension NSMutableData {
     func appendString(_ string: String) {
         let data = string.data(using: String.Encoding.utf8, allowLossyConversion: false)
@@ -17,9 +18,8 @@ extension NSMutableData {
     }
 }
 
+// Layout for camera tab
 struct CameraView: View {
-    // @State private var isShowingImagePicker = false
-    // @State private var image: Image?
     @StateObject var camera = CameraModel()
 
     var body: some View {
@@ -98,6 +98,7 @@ struct CameraView: View {
     }
 }
 
+// Class for the actual camera object in the page
 class CameraModel: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
     @Published var isTaken = false
     @Published var session = AVCaptureSession()
@@ -109,6 +110,7 @@ class CameraModel: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
     @Published var sentSuccess = false
     @Published var isLoading = false
     
+    // Checks if device has authorization to use the camera
     func Check(){
         switch AVCaptureDevice.authorizationStatus(for: .video) {
         case .authorized:
@@ -128,6 +130,7 @@ class CameraModel: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
         }
     }
     
+    // Starts the camera session
     func setUp() {
         do {
             self.session.beginConfiguration()
@@ -149,6 +152,7 @@ class CameraModel: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
         }
     }
     
+    // Stops the camera session
     func takePic() {
         DispatchQueue.global(qos: .background).async {
             if !self.session.isRunning {
@@ -164,6 +168,7 @@ class CameraModel: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
         }
     }
     
+    // Allows user to retake a photo
     func retake() {
         DispatchQueue.global(qos: .background).async {
             self.session.startRunning()
@@ -175,11 +180,13 @@ class CameraModel: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
         }
     }
     
+    // Converts captured image to image data
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         guard let imageData = photo.fileDataRepresentation() else {return}
         self.picData = imageData
     }
     
+    // Sends image, along with password & username to the API
     func sendImage() {
         let image = UIImage(data: self.picData)
         self.isSent = true
@@ -231,6 +238,7 @@ class CameraModel: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
         task.resume()
     }
     
+    // Helper function to create the JSON HTTP request
     func createBody(parameters: [String: String],
                         boundary: String,
                         data: Data,
@@ -257,6 +265,7 @@ class CameraModel: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
         }
     }
 
+// Layout for live camera view
 struct CameraPreview : UIViewRepresentable {
     @ObservedObject var camera: CameraModel
     

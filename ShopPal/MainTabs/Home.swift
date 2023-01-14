@@ -30,7 +30,7 @@ struct HomeView: View {
                             Spacer()
                             Text("$\(String(format: "%.2f", receipt.total))")
                             Spacer()
-                            Text(receipt.receiptDate)
+                            Text(formatDate(receipt.receiptDate))
                         }.background(RoundedRectangle(cornerRadius: 32)
                           .strokeBorder(LinearGradient(
                             gradient: .init(colors: [
@@ -51,6 +51,7 @@ struct HomeView: View {
             
         }
     }
+
 
     
     var border: some View {
@@ -74,24 +75,26 @@ struct HomeView: View {
     
     
 }//End of home screen
-
 struct ReceiptView: View {
     var receipt: Receipt
-    
+
     var body: some View {
-        VStack(alignment: .leading) {
-            Text(receipt.store)
-                .font(.headline)
-            Text(receipt.receiptDate)
-                .font(.subheadline)
+        VStack(alignment: .leading, spacing: 0) {
+            HStack {
+                Text(receipt.store)
+                    .font(.system(size: 25, weight: .bold))
+                Spacer()
+                Text(formatDate(receipt.receiptDate))
+                    .font(.subheadline)
+            }
             if let url = URL(string: receipt.image),
                 let data = try? Data(contentsOf: url),
                 let uiImage = UIImage(data: data) {
-                  Image(uiImage: uiImage)
-                      .resizable()
-                      .frame(width: 300, height: 400)
+                Image(uiImage: uiImage)
+                    .resizable()
+                    .frame(width: 300, height: 400)
             }
-            Text("$\(String(format: "%.2f", receipt.total))")
+            Text("Items:")
                 .font(.headline)
             ForEach(receipt.items, id: \.self) { item in
                 HStack {
@@ -100,9 +103,15 @@ struct ReceiptView: View {
                     Text("$\(String(format: "%.2f", item.price))")
                 }
             }
-        }
+            Text("Total: $\(String(format: "%.2f", receipt.total))")
+                .font(.headline)
+            Spacer()
+        }.padding(.top)
     }
 }
+
+
+
 
 struct Receipts: Decodable {
     let items: [Receipt]
@@ -151,4 +160,12 @@ func getReceipts() -> Receipts {
 
     let receipts = try! JSONDecoder().decode(Receipts.self, from: responseData!)
     return receipts
+}
+
+func formatDate(_ dateString: String) -> String {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+    let date = dateFormatter.date(from: dateString)
+    dateFormatter.dateFormat = "MM/dd/yyyy"
+    return dateFormatter.string(from: date!)
 }
