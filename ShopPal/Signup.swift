@@ -34,6 +34,7 @@ struct SignUpView: View {
                     .foregroundColor(.green)
                     .font(.system(size: 40, weight: .heavy, design: .default))
                 
+                //First name field
                 TextField("First Name", text: $firstName)
                     .placeholder(when: firstName.isEmpty) {
                         Text("First Name").foregroundColor(Color(.lightGray))
@@ -51,6 +52,7 @@ struct SignUpView: View {
 //                    .autocapitalization(.none)
                     .disableAutocorrection(true)
                 
+                //Last name field
                 TextField("Last Name", text: $lastName)
                     .placeholder(when: lastName.isEmpty) {
                         Text("Last Name").foregroundColor(Color(.lightGray))
@@ -68,6 +70,7 @@ struct SignUpView: View {
 //                    .autocapitalization(.none)
                     .disableAutocorrection(true)
                 
+                //Email field
                 TextField("Email", text: $email)
                     .placeholder(when: email.isEmpty) {
                         Text("Email").foregroundColor(Color(.lightGray))
@@ -85,6 +88,7 @@ struct SignUpView: View {
 //                    .autocapitalization(.none)
                     .disableAutocorrection(true)
                 
+                //Password field
                 HybridTextField(text: $password, titleKey: "Password")
                     .placeholder(when: password.isEmpty) {
                         Text("Password").foregroundColor(Color(.lightGray))
@@ -102,7 +106,7 @@ struct SignUpView: View {
 //                    .autocapitalization(.none)
                     .disableAutocorrection(true)
                 
-                
+                //Confirm password field
                 HybridTextField(text: $confirmPassword, titleKey: "Confirm Password")
                     .placeholder(when: confirmPassword.isEmpty) {
                         Text("Confirm Password").foregroundColor(Color(.lightGray))
@@ -119,7 +123,8 @@ struct SignUpView: View {
                     .padding(4)
 //                    .autocapitalization(.none)
                     .disableAutocorrection(true)
-            //Commment
+                
+            //Confirm button
                 Button(action: {
                     isValidEmail = true
                     isValidPassword = true
@@ -128,6 +133,7 @@ struct SignUpView: View {
                     var dotIndex: Int = -1
                     var counter = 0
                     var dotCounter = 0
+                    
                     
                     for char in email {
                         if(char == "@"){
