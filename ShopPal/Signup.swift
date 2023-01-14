@@ -134,7 +134,7 @@ struct SignUpView: View {
                     var counter = 0
                     var dotCounter = 0
                     
-                    
+                    //Check if email is valid
                     for char in email {
                         if(char == "@"){
                             atCounter += 1
