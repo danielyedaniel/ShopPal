@@ -42,12 +42,11 @@ router.post("/add", async (req, res) => {
         image: uploadedImage.Location,
     };
 
+    // Check if any fields are undefined
     if (receipt.total === undefined) receipt.total = 0;
     if (receipt.store === undefined) receipt.store = 'unknown';
     if (receipt.address === undefined) receipt.address = 'unknown';
     if (receipt.items === undefined) receipt.items = [];
-
-
 
     const params = {
         TableName: process.env.AWS_DyanmoDB_Table,
