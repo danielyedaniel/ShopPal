@@ -19,7 +19,6 @@
 		96C41D522967C1C500C3CF4B /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C41D512967C1C500C3CF4B /* Main.swift */; };
 		96C41D552967C22D00C3CF4B /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C41D542967C22D00C3CF4B /* Home.swift */; };
 		96C41D572967C25300C3CF4B /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C41D562967C25300C3CF4B /* Settings.swift */; };
-		96C41D592967C26300C3CF4B /* Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C41D582967C26300C3CF4B /* Chart.swift */; };
 		96E8BBE62968895B007A1AE1 /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E8BBE52968895B007A1AE1 /* Camera.swift */; };
 /* End PBXBuildFile section */
 
@@ -58,7 +57,6 @@
 		96C41D512967C1C500C3CF4B /* Main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
 		96C41D542967C22D00C3CF4B /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		96C41D562967C25300C3CF4B /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
-		96C41D582967C26300C3CF4B /* Chart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chart.swift; sourceTree = "<group>"; };
 		96E8BBE52968895B007A1AE1 /* Camera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -162,7 +160,6 @@
 			children = (
 				96C41D542967C22D00C3CF4B /* Home.swift */,
 				96C41D562967C25300C3CF4B /* Settings.swift */,
-				96C41D582967C26300C3CF4B /* Chart.swift */,
 				96E8BBE52968895B007A1AE1 /* Camera.swift */,
 			);
 			path = MainTabs;
@@ -298,7 +295,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96C41D592967C26300C3CF4B /* Chart.swift in Sources */,
 				96C41D522967C1C500C3CF4B /* Main.swift in Sources */,
 				9643EB0A295949CC00C46A96 /* ContentView.swift in Sources */,
 				9643EB08295949CC00C46A96 /* ShopPalApp.swift in Sources */,
@@ -461,7 +457,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ShopPal/Preview Content\"";
-				DEVELOPMENT_TEAM = RC69V8ZT5A;
+				DEVELOPMENT_TEAM = RZUWB4BNJL;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Take photos";

@@ -29,11 +29,6 @@ struct mainScreen: View {
                     Image(systemName: "house")
                     Text("Home")
                 }
-            ChartView()
-                .tabItem{
-                    Image(systemName: "chart.bar.fill")
-                    Text("Chart")
-                }
             CameraView()
                 .tabItem{
                     Image(systemName: "camera")
