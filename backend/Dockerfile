@@ -18,3 +18,6 @@ EXPOSE 3000
 
 # Set the command to start the Express server
 CMD ["npm", "start"]
+
+# need to add env file to run server
+# docker run --env-file .env -p 3000:3000 shoppal-server
